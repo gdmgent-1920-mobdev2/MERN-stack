@@ -31,7 +31,7 @@ class App {
 
   private errorHandler (error: Error, req: Request, res: Response, next: NextFunction): void {
     if (error['status'] === 404) {
-      res.status(404).json({ message: '404'});
+      res.status(404).render('pages/404');
     } else {
       res.status(500).json({ message: '500'});
     }

@@ -2,6 +2,7 @@ import { default as http, createServer, Server } from 'http';
 import { default as express, Application, NextFunction, Request, Response } from 'express';
 
 import { default as Router } from './router';
+import { GlobalMiddleware } from './middleware';
 
 class App {
   public app: Application;
@@ -15,6 +16,7 @@ class App {
 
   private createExpress (): void {
     this.app = express();
+    GlobalMiddleware.load(this.app, __dirname);
     this.createRouter();
     this.app.use(this.clientErrorHandler);
     this.app.use(this.errorHandler);

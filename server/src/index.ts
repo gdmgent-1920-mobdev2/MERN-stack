@@ -1,7 +1,12 @@
 import { default as App } from './app';
 
+import { default as Config, IConfig } from './app/services/config';
+
 (() => {
-  const app: App = new App();
+  // Create a Config service
+  const config: IConfig = new Config();
+
+  const app: App = new App(config);
   app.start();
 
   const stopAllProcesses = () => {

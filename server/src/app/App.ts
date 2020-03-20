@@ -10,13 +10,17 @@ import {
 import { default as Router } from './router';
 import { GlobalMiddleware } from './middleware';
 import { IAppError } from './utilities';
+import { IConfig } from './services/config';
 
 class App {
   public app: Application;
+  private config: IConfig;
   private server: Server;
   private router: Router;
 
-  constructor() {
+  constructor (config: IConfig) {
+    this.config = config;
+
     this.createExpress();
     this.createServer();
   }
@@ -63,7 +67,7 @@ class App {
       console.log('Server is closed!');
     });
     this.server.on('listening', () => {
-      console.log('Server is listening on localhost:8080');
+      console.log(`Server is listening on ${this.config.server.host}:${this.config.server.port}`);
     });
   }
 
@@ -72,7 +76,7 @@ class App {
   }
 
   public start(): void {
-    this.server.listen(8080, 'localhost');
+    this.server.listen(this.config.server.port, this.config.server.host);
   }
 
   public stop(): void {

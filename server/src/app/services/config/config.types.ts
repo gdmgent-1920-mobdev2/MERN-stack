@@ -1,13 +1,13 @@
 export enum Environment {
   development = 'development',
-  production= 'production',
-  test = 'test'
-};
+  production = 'production',
+  test = 'test',
+}
 
 export enum ServerProtocol {
   http = 'http',
-  https = 'https'
-};
+  https = 'https',
+}
 
 export interface IServerConfig {
   host: string;

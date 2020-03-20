@@ -11,14 +11,17 @@ import { default as Router } from './router';
 import { GlobalMiddleware } from './middleware';
 import { IAppError } from './utilities';
 import { IConfig } from './services/config';
+import { ILogger } from './services/logger';
 
 class App {
   public app: Application;
   private config: IConfig;
-  private server: Server;
+  private logger: ILogger;
   private router: Router;
+  private server: Server;  
 
-  constructor (config: IConfig) {
+  constructor(logger: ILogger, config: IConfig) {
+    this.logger = logger;
     this.config = config;
 
     this.createExpress();
@@ -64,10 +67,12 @@ class App {
       this.gracefulShutdown(error);
     });
     this.server.on('close', () => {
-      console.log('Server is closed!');
+      this.logger.info('Server is closed!', {});
     });
     this.server.on('listening', () => {
-      console.log(`Server is listening on ${this.config.server.host}:${this.config.server.port}`);
+      this.logger.info(
+        `Server is listening on ${this.config.server.host}:${this.config.server.port}`, {}
+      );
     });
   }
 
@@ -86,6 +91,8 @@ class App {
   }
 
   private gracefulShutdown(error?: Error): void {
+    this.logger.info('Server is gracefully shutdown!', error || {});
+    
     if (error) {
       process.exit(1);
     }

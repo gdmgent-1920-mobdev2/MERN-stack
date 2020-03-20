@@ -8,9 +8,9 @@ import {
 } from 'express';
 
 import { default as Router } from './router';
-import { GlobalMiddleware } from './middleware';
+import { GlobalMiddleware, MorganMiddleware, SwaggerMiddleware } from './middleware';
 import { IAppError } from './utilities';
-import { IConfig } from './services/config';
+import { IConfig, Environment } from './services/config';
 import { ILogger } from './services/logger';
 
 class App {
@@ -31,6 +31,10 @@ class App {
   private createExpress(): void {
     this.app = express();
     GlobalMiddleware.load(this.app, __dirname);
+    if (this.config.env === Environment.development) {
+      MorganMiddleware.load(this.app);
+    }
+    SwaggerMiddleware.load(this.app, __dirname);
     this.createRouter();
     this.app.use(this.clientErrorHandler);
     this.app.use(this.errorHandler);

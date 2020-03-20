@@ -87,7 +87,6 @@ class MongoDBDatabase {
         }
         return Message.find().exec();
       });
-    console.log(messages);
   };
 }
 

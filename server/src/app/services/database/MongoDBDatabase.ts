@@ -30,7 +30,7 @@ class MongoDBDatabase {
           resolve(true);
         })
         .catch(error => {
-          this.logger.error('Can\'t connect to the database', error);
+          this.logger.error("Can't connect to the database", error);
 
           reject(error);
         });
@@ -45,7 +45,7 @@ class MongoDBDatabase {
           resolve(data);
         })
         .catch(error => {
-          this.logger.error('Can\'t disconnect the database', error);
+          this.logger.error("Can't disconnect the database", error);
 
           reject(error);
         });
@@ -59,10 +59,10 @@ class MongoDBDatabase {
       const newMessage = await message.save();
 
       this.logger.info(`Message created with id ${newMessage._id}`, {});
-    } catch(error) {
-      this.logger.error('An error occurred when creating a message', error)
+    } catch (error) {
+      this.logger.error('An error occurred when creating a message', error);
     }
-  }
+  };
 
   private createMessages = async () => {
     await Promise.all([
@@ -76,10 +76,11 @@ class MongoDBDatabase {
       (async () => this.messageCreate(faker.lorem.paragraph()))(),
       (async () => this.messageCreate(faker.lorem.paragraph()))(),
     ]);
-  }
+  };
 
   public seed = async () => {
-    const messages = await Message.estimatedDocumentCount().exec()
+    const messages = await Message.estimatedDocumentCount()
+      .exec()
       .then(async count => {
         if (count === 0) {
           await this.createMessages();
@@ -87,7 +88,7 @@ class MongoDBDatabase {
         return Message.find().exec();
       });
     console.log(messages);
-  }
+  };
 }
 
 export default MongoDBDatabase;

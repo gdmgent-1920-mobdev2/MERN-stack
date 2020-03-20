@@ -18,7 +18,7 @@ class App {
   private config: IConfig;
   private logger: ILogger;
   private router: Router;
-  private server: Server;  
+  private server: Server;
 
   constructor(logger: ILogger, config: IConfig) {
     this.logger = logger;
@@ -71,7 +71,8 @@ class App {
     });
     this.server.on('listening', () => {
       this.logger.info(
-        `Server is listening on ${this.config.server.host}:${this.config.server.port}`, {}
+        `Server is listening on ${this.config.server.host}:${this.config.server.port}`,
+        {},
       );
     });
   }
@@ -92,7 +93,7 @@ class App {
 
   private gracefulShutdown(error?: Error): void {
     this.logger.info('Server is gracefully shutdown!', error || {});
-    
+
     if (error) {
       process.exit(1);
     }

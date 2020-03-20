@@ -5,7 +5,7 @@ import { ILogger, LoggLevel } from './logger.types';
 class Logger implements ILogger {
   private logger: winston.Logger;
 
-  constructor () {
+  constructor() {
     const { align, combine, colorize, timestamp, printf } = format;
 
     this.logger = createLogger({
@@ -31,22 +31,22 @@ class Logger implements ILogger {
     });
   }
 
-  private log (level: string, msg: string, obj: object) {
+  private log(level: string, msg: string, obj: object) {
     this.logger.log(level, msg, {
       object: obj,
       timestamp: new Date().toISOString(),
     });
   }
 
-  public error (msg: string, obj: object) {
+  public error(msg: string, obj: object) {
     this.log(LoggLevel.error, msg, obj);
   }
 
-  public info (msg: string, obj: object) {
+  public info(msg: string, obj: object) {
     this.log(LoggLevel.info, msg, obj);
   }
 
-  public warning (msg: string, obj: object) {
+  public warning(msg: string, obj: object) {
     this.log(LoggLevel.warning, msg, obj);
   }
 }

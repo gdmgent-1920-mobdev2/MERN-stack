@@ -3,16 +3,20 @@ import { default as faker } from 'faker';
 
 import { ILogger } from '../logger';
 import { IConfig } from '../config';
-import { IMessage, Message } from '../../models/mongoose';
+import { IMessage, Message, IUser, User } from '../../models/mongoose';
 
 class MongoDBDatabase {
   private config: IConfig;
   private logger: ILogger;
   private db: Connection;
 
+  private users: Array<IUser>;
+
   constructor(logger: ILogger, config: IConfig) {
     this.logger = logger;
     this.config = config;
+
+    this.users = [];
   }
 
   public connect(): Promise<any> {
@@ -78,6 +82,43 @@ class MongoDBDatabase {
     ]);
   };
 
+  private userCreate = async (email: string, password: string, role: string, firstName: string, lastName: string, avatar: string) => {
+    const userDetail = {
+      email,
+      localProvider: {
+        password
+      },
+      role,
+      profile: {
+        firstName,
+        lastName,
+        avatar
+      }
+    };
+
+    const user: IUser = new User(userDetail);
+
+    try {
+      const createdUser = await user.save();
+      this.users.push(createdUser);
+
+      this.logger.info(`User created with id: ${createdUser._id}`, {});
+    } catch (err) {
+      this.logger.error(`An error occurred when creating a user ${err}`, err);
+    }
+  };
+
+  private createUsers = async () => {
+    const promises = [];
+
+    for (let i = 0; i < 30; i++) {
+      const gender = Math.round(Math.random());
+      promises.push(this.userCreate(faker.internet.email(), 'nmdgent007!', 'user', faker.name.firstName(gender), faker.name.lastName(gender), faker.internet.avatar()));
+    }
+
+    return await Promise.all(promises);
+  }
+
   public seed = async () => {
     const messages = await Message.estimatedDocumentCount()
       .exec()
@@ -87,6 +128,13 @@ class MongoDBDatabase {
         }
         return Message.find().exec();
       });
+
+    this.users = await User.estimatedDocumentCount().exec().then(async (count) => {
+      if (count === 0) {
+        await this.createUsers();
+      }
+      return User.find().exec();
+    });
   };
 }
 

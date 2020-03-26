@@ -22,54 +22,52 @@ interface IUser extends Document {
   _modifiedAt: number;
   _deletedAt: number;
 
-  localprovider?: ILocalProvider;
+  localProvider?: ILocalProvider;
   facebookProvider?: IFacebookProvider;
 
   role: string;
   profile?: IProfile;
 }
 
-const userSchema: Schema = new Schema(
-  {
-    email: {
+const userSchema: Schema = new Schema({
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  _createdAt: { type: Number, required: true, default: Date.now() },
+  _modifiedAt: { type: Number, required: false, default: null },
+  _deletedAt: { type: Number, required: false, default: null },
+  localProvider: {
+    password: {
       type: String,
-      required: true,
-      unique: true
+      required: false,
     },
-    _createdAt: { type: Number, required: true, default: Date.now() },
-    _modifiedAt: { type: Number, required: false, default: null },
-    _deletedAt: { type: Number, required: false, default: null },
-    localProvider: {
-      password: {
-        type: String,
-        required: false,
-      }
-    },
-    facebookProvider: {
-      id: {
-        type: String,
-        required: false
-      },
-      token: {
-        type: String,
-        required: false
-      }
-    },
-    role: {
+  },
+  facebookProvider: {
+    id: {
       type: String,
-      enum: ['user', 'administrator'],
-      default: 'user',
-      required: true
+      required: false,
     },
-    profile: {
-      firstName: String,
-      lastName: String,
-      avatar: String
-    }
-  }
-);
+    token: {
+      type: String,
+      required: false,
+    },
+  },
+  role: {
+    type: String,
+    enum: ['user', 'administrator'],
+    default: 'user',
+    required: true,
+  },
+  profile: {
+    firstName: String,
+    lastName: String,
+    avatar: String,
+  },
+});
 
-userSchema.pre('save', function (next) {
+userSchema.pre('save', function(next) {
   const user: IUser = this as IUser;
 
   if (!user.isModified('localProvider.password')) return next();
@@ -78,22 +76,18 @@ userSchema.pre('save', function (next) {
     return bcrypt.genSalt(10, (errSalt, salt) => {
       if (errSalt) throw errSalt;
 
-      bcrypt.hash(user.localprovider.password, salt, (errHash, hash) => {
+      bcrypt.hash(user.localProvider.password, salt, (errHash, hash) => {
         if (errHash) throw errHash;
 
-        user.localprovider.password = hash;
+        user.localProvider.password = hash;
         return next();
-      })
+      });
     });
-  } catch(err) {
+  } catch (err) {
     return next(err);
   }
 });
 
 const User = mongoose.model<IUser>('User', userSchema);
 
-export {
-  IUser,
-  User,
-  userSchema,
-}
+export { IUser, User, userSchema };

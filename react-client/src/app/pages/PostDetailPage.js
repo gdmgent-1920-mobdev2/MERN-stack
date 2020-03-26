@@ -12,13 +12,14 @@ const PostDetailPage = ({children}) => {
   const initFetch = useCallback(
     () => {
       const fetchPost = async () => {
-        const data = await findPost();
+        const data = await findPost(id);
+        
         setPost(data);
       }
 
       fetchPost();
     },
-    [findPost],
+    [findPost, id],
   )
 
   useEffect(() => {

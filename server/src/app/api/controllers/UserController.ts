@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
-import { IPost, Post } from '../../models/mongoose';
+import { User } from '../../models/mongoose';
 
-class PostController {
+class UserController {
   index = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const posts = await Post.find().sort({_createdAt: -1}).exec();
-      return res.status(200).json(posts);
+      const users = await User.find().sort({_createdAt: -1}).exec();
+      return res.status(200).json(users);
     } catch (err) {
       next(err);
     }
@@ -15,12 +15,12 @@ class PostController {
     try {
       const { id } = req.params;
 
-      const post = await Post.findById(id).exec();
-      return res.status(200).json(post);
+      const user = await User.findById(id).exec();
+      return res.status(200).json(user);
     } catch (err) {
       next(err);
     }
   }
 }
 
-export default PostController;
+export default UserController;

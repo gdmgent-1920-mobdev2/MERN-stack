@@ -3,7 +3,7 @@ import { default as faker } from 'faker';
 
 import { ILogger } from '../logger';
 import { IConfig } from '../config';
-import { IMessage, Message, IUser, User } from '../../models/mongoose';
+import { IMessage, Message, IUser, User, Post, IPost } from '../../models/mongoose';
 
 class MongoDBDatabase {
   private config: IConfig;
@@ -11,11 +11,13 @@ class MongoDBDatabase {
   private db: Connection;
 
   private users: Array<IUser>;
+  private posts: Array<IPost>;
 
   constructor(logger: ILogger, config: IConfig) {
     this.logger = logger;
     this.config = config;
 
+    this.posts = [];
     this.users = [];
   }
 
@@ -144,6 +146,45 @@ class MongoDBDatabase {
     return await Promise.all(promises);
   };
 
+  private postCreate = async (
+    title: string,
+    synopsis: string,
+    body: string
+  ) => {
+    const postDetail = {
+      title,
+      synopsis,
+      body,
+    };
+
+    const post: IPost = new Post(postDetail);
+
+    try {
+      const createdPost = await post.save();
+      this.posts.push(createdPost);
+
+      this.logger.info(`Post created with id: ${createdPost._id}`, {});
+    } catch (err) {
+      this.logger.error(`An error occurred when creating a post ${err}`, err);
+    }
+  };
+
+  private createPosts = async () => {
+    const promises = [];
+
+    for (let i = 0; i < 16; i++) {
+      promises.push(
+        this.postCreate(
+          faker.lorem.sentence(),
+          faker.lorem.paragraph(),
+          `<p>${faker.lorem.paragraphs(10, '</p><p>')}</p>`
+        ),
+      );
+    }
+
+    return await Promise.all(promises);
+  };
+
   public seed = async () => {
     const messages = await Message.estimatedDocumentCount()
       .exec()
@@ -161,6 +202,15 @@ class MongoDBDatabase {
           await this.createUsers();
         }
         return User.find().exec();
+      });
+
+    this.posts = await Post.estimatedDocumentCount()
+      .exec()
+      .then(async count => {
+        if (count === 0) {
+          await this.createPosts();
+        }
+        return Post.find().exec();
       });
   };
 }

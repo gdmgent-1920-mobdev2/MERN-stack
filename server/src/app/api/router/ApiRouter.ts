@@ -9,6 +9,7 @@ import {
   HelloController,
   MessageController,
   PostController,
+  UserController,
 } from '../controllers';
 
 class ApiRouter {
@@ -16,6 +17,7 @@ class ApiRouter {
   private helloController: HelloController;
   private messageController: MessageController;
   private postController: PostController;
+  private userController: UserController;
 
   constructor() {
     this.router = express.Router();
@@ -28,6 +30,7 @@ class ApiRouter {
     this.helloController = new HelloController();
     this.messageController = new MessageController();
     this.postController = new PostController();
+    this.userController = new UserController();
   }
 
   private registerRoutes(): void {
@@ -36,6 +39,8 @@ class ApiRouter {
     this.router.get('/messages/:id', this.messageController.show);
     this.router.get('/posts', this.postController.index);
     this.router.get('/posts/:id', this.postController.show);
+    this.router.get('/users', this.userController.index);
+    this.router.get('/users/:id', this.userController.show);
   }
 }
 

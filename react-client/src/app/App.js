@@ -7,7 +7,7 @@ import { RouteWithLayout } from './utilities';
 import * as Routes from './routes';
 import { ApiProvider } from './services';
 
-import './App.css';
+import './app.scss';
 
 function App() {
   return (

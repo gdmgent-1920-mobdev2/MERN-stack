@@ -1,7 +1,7 @@
 import { default as React} from 'react';
 import { useHistory } from 'react-router';
 
-import { PostList } from '../components';
+import { PostList, SlantContainer } from '../components';
 import * as Routes from '../routes';
 
 const HomePage = ({children}) => {
@@ -13,7 +13,9 @@ const HomePage = ({children}) => {
 
   return (
     <div>
-      <PostList className="post-list" onReadMore={handlePostReadMore} />
+      <SlantContainer shape={2} color={'black-400'}>
+        <PostList className="post-list" onReadMore={handlePostReadMore} />
+      </SlantContainer>
     </div>
   );
 };

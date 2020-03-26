@@ -1,0 +1,45 @@
+@import '../../_sass/abstracts/index';
+
+.slant-container {
+    box-sizing: border-box;
+
+    &--shape-1 {
+        clip-path: polygon(0 0, 100% 80px, 100% calc(100% - 80px), 0% 100%, 0 0);
+    }
+    &--shape-2 {
+        clip-path: polygon(0 80px, 100% 0%, 100% 100%, 0% calc(100% - 80px), 0 80px);
+    }
+    &--shape-3 {
+        clip-path: polygon(0 0, 100% 80px, 100% 100%, 0% 100%, 0 0);
+    }
+    &--shape-4 {
+        clip-path: polygon(0 80px, 100% 0%, 100% 100%, 0% 100%, 0 80px);
+    }
+
+    &--color {
+        &-black-200 {
+            background: palette-color($palette-black, 200);
+            color: palette-color($palette-white, 200);
+        }
+        &-black-300 {
+            background: palette-color($palette-black, 300);
+            color: palette-color($palette-white, 300);
+        }
+        &-black-400 {
+            background: palette-color($palette-black, 400);
+            color: palette-color($palette-white, 400);
+        }
+        &-black-500 {
+            background: palette-color($palette-black, 500);
+            color: palette-color($palette-white, 500);
+        }
+        &-black-600 {
+            background: palette-color($palette-black, 600);
+            color: palette-color($palette-white, 600);
+        }
+        &-black-700 {
+            background: palette-color($palette-black, 700);
+            color: palette-color($palette-white, 700);
+        }
+    }
+}

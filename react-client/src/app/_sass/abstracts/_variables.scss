@@ -1,0 +1,83 @@
+$color-black: #222;
+$color-white: #f1f1f1;
+$color-purple: #7E57C5;
+$color-green: #5AB946;
+$color-red: #ED0034;
+$color-orange: #F58732;
+$color-blue: #00A5D9;
+
+$palette-black: (
+  100: lighten($color-black, 15%),
+  200: lighten($color-black, 10%),
+  300: lighten($color-black, 5%),
+  400: $color-black,
+  500: darken($color-black, 5%),
+  600: darken($color-black, 10%),
+  700: darken($color-black, 15%)
+);
+
+$palette-white: (
+  100: lighten($color-white, 15%),
+  200: lighten($color-white, 10%),
+  300: lighten($color-white, 5%),
+  400: $color-white,
+  500: darken($color-white, 5%),
+  600: darken($color-white, 10%),
+  700: darken($color-white, 15%)
+);
+
+$palette-purple: (
+  100: lighten($color-purple, 15%),
+  200: lighten($color-purple, 10%),
+  300: lighten($color-purple, 5%),
+  400: $color-purple,
+  500: darken($color-purple, 5%),
+  600: darken($color-purple, 10%),
+  700: darken($color-purple, 15%)
+);
+
+$palette-green: (
+  100: lighten($color-green, 15%),
+  200: lighten($color-green, 10%),
+  300: lighten($color-green, 5%),
+  400: $color-green,
+  500: darken($color-green, 5%),
+  600: darken($color-green, 10%),
+  700: darken($color-green, 15%)
+);
+
+$palette-red: (
+  100: lighten($color-red, 15%),
+  200: lighten($color-red, 10%),
+  300: lighten($color-red, 5%),
+  400: $color-red,
+  500: darken($color-red, 5%),
+  600: darken($color-red, 10%),
+  700: darken($color-red, 15%)
+);
+
+$palette-orange: (
+  100: lighten($color-orange, 15%),
+  200: lighten($color-orange, 10%),
+  300: lighten($color-orange, 5%),
+  400: $color-orange,
+  500: darken($color-orange, 5%),
+  600: darken($color-orange, 10%),
+  700: darken($color-orange, 15%)
+);
+
+$palette-blue: (
+  100: lighten($color-blue, 15%),
+  200: lighten($color-blue, 10%),
+  300: lighten($color-blue, 5%),
+  400: $color-blue,
+  500: darken($color-blue, 5%),
+  600: darken($color-blue, 10%),
+  700: darken($color-blue, 15%)
+);
+
+$font-family-Roboto: 'Roboto', sans-serif;
+$font-family-Montserrat: 'Montserrat', sans-serif;
+
+$font-family-body: $font-family-Roboto;
+$font-family-heading: $font-family-Montserrat;

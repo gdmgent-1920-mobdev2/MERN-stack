@@ -5,15 +5,25 @@ const PostList = ({children, onReadMore, ...rest }) => {
   const { findAllPosts } = useApi();
   const [ posts, setPosts ] = useState();
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      const data = await findAllPosts();
-      console.log(data);
-      setPosts(data);
-    }
+  const initFetch = useCallback(
+    () => {
+      const fetchPosts = async () => {
+        const data = await findAllPosts();
+        setPosts(data);
+      }
 
-    fetchPosts();
-  }, []);
+      fetchPosts();
+    },
+    [findAllPosts],
+  )
+
+  useEffect(() => {
+    initFetch();
+
+    return () => {
+      // no cleanup
+    }
+  }, [initFetch]);
   
   const handleReadMore = (ev, postId) => {
     ev.preventDefault();

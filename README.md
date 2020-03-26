@@ -49,7 +49,7 @@ Create a `.env`-file under the `client` folder following contents:
 
 ```
 SKIP_PREFLIGHT_CHECK=true
-SASS_PATH=node_modules:src
+REACT_APP_API_URL=/api
 ```
 
 ### Installing

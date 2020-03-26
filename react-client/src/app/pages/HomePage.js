@@ -1,7 +1,6 @@
 import { default as React} from 'react';
 import { useHistory } from 'react-router';
 
-import { useApi } from '../services';
 import { PostList } from '../components';
 import * as Routes from '../routes';
 

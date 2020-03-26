@@ -1,4 +1,4 @@
-import { default as React, useEffect, useState, Fragment } from 'react';
+import { default as React, useCallback, useEffect, useState, Fragment } from 'react';
 import { useParams } from 'react-router';
 import { useApi } from '../services';
 
@@ -9,18 +9,25 @@ const PostDetailPage = ({children}) => {
   const { findPost } = useApi();
   const [ post, setPost] = useState(null);
 
-  useEffect(() => {
-    const fetchPost = async () => {
-      const data = await findPost(id);
-      setPost(data);
-    };
+  const initFetch = useCallback(
+    () => {
+      const fetchPost = async () => {
+        const data = await findPost();
+        setPost(data);
+      }
 
-    fetchPost();
+      fetchPost();
+    },
+    [findPost],
+  )
+
+  useEffect(() => {
+    initFetch();
 
     return () => {
       // no cleanup
     }
-  }, [id]);
+  }, [initFetch, id]);
 
   return (
     <Fragment>

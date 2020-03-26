@@ -4,12 +4,14 @@ import { IPost, Post } from '../../models/mongoose';
 class PostController {
   index = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const posts = await Post.find().sort({_createdAt: -1}).exec();
+      const posts = await Post.find()
+        .sort({ _createdAt: -1 })
+        .exec();
       return res.status(200).json(posts);
     } catch (err) {
       next(err);
     }
-  }
+  };
 
   show = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -20,7 +22,7 @@ class PostController {
     } catch (err) {
       next(err);
     }
-  }
+  };
 }
 
 export default PostController;

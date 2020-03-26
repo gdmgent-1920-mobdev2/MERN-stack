@@ -3,7 +3,14 @@ import { default as faker } from 'faker';
 
 import { ILogger } from '../logger';
 import { IConfig } from '../config';
-import { IMessage, Message, IUser, User, Post, IPost } from '../../models/mongoose';
+import {
+  IMessage,
+  Message,
+  IUser,
+  User,
+  Post,
+  IPost,
+} from '../../models/mongoose';
 
 class MongoDBDatabase {
   private config: IConfig;
@@ -149,7 +156,7 @@ class MongoDBDatabase {
   private postCreate = async (
     title: string,
     synopsis: string,
-    body: string
+    body: string,
   ) => {
     const postDetail = {
       title,
@@ -177,7 +184,7 @@ class MongoDBDatabase {
         this.postCreate(
           faker.lorem.sentence(),
           faker.lorem.paragraph(),
-          `<p>${faker.lorem.paragraphs(10, '</p><p>')}</p>`
+          `<p>${faker.lorem.paragraphs(10, '</p><p>')}</p>`,
         ),
       );
     }

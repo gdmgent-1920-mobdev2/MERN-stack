@@ -13,12 +13,12 @@ const postSchema: Schema = new Schema({
   title: {
     type: String,
     required: true,
-    max: 128
+    max: 128,
   },
   synopsis: {
     type: String,
     required: true,
-    max: 512
+    max: 512,
   },
   body: {
     type: String,

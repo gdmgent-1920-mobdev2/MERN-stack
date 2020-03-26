@@ -82,18 +82,25 @@ class MongoDBDatabase {
     ]);
   };
 
-  private userCreate = async (email: string, password: string, role: string, firstName: string, lastName: string, avatar: string) => {
+  private userCreate = async (
+    email: string,
+    password: string,
+    role: string,
+    firstName: string,
+    lastName: string,
+    avatar: string,
+  ) => {
     const userDetail = {
       email,
       localProvider: {
-        password
+        password,
       },
       role,
       profile: {
         firstName,
         lastName,
-        avatar
-      }
+        avatar,
+      },
     };
 
     const user: IUser = new User(userDetail);
@@ -111,13 +118,31 @@ class MongoDBDatabase {
   private createUsers = async () => {
     const promises = [];
 
+    this.userCreate(
+      'drdynscript@gmail.com',
+      'nmdgent007!',
+      'administrator',
+      'Philippe',
+      'De Pauw - Waterschoot',
+      'https://scontent-bru2-1.xx.fbcdn.net/v/t1.0-9/42580828_10214673932035654_3017264055002857472_n.jpg?_nc_cat=104&_nc_sid=85a577&_nc_oc=AQkUCFAyscOEkhhfuiS4Fq4sY8_1_l56xU0xQurtXuVXLu3ipVfwpCB0eSPIcRhoFLI&_nc_ht=scontent-bru2-1.xx&oh=b032a18ceb8fc6e7e678f676cf356a4e&oe=5EA14E2B',
+    );
+
     for (let i = 0; i < 30; i++) {
       const gender = Math.round(Math.random());
-      promises.push(this.userCreate(faker.internet.email(), 'nmdgent007!', 'user', faker.name.firstName(gender), faker.name.lastName(gender), faker.internet.avatar()));
+      promises.push(
+        this.userCreate(
+          faker.internet.email(),
+          'nmdgent007!',
+          'user',
+          faker.name.firstName(gender),
+          faker.name.lastName(gender),
+          faker.internet.avatar(),
+        ),
+      );
     }
 
     return await Promise.all(promises);
-  }
+  };
 
   public seed = async () => {
     const messages = await Message.estimatedDocumentCount()
@@ -129,12 +154,14 @@ class MongoDBDatabase {
         return Message.find().exec();
       });
 
-    this.users = await User.estimatedDocumentCount().exec().then(async (count) => {
-      if (count === 0) {
-        await this.createUsers();
-      }
-      return User.find().exec();
-    });
+    this.users = await User.estimatedDocumentCount()
+      .exec()
+      .then(async count => {
+        if (count === 0) {
+          await this.createUsers();
+        }
+        return User.find().exec();
+      });
   };
 }
 

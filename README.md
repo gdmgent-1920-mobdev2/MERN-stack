@@ -37,7 +37,6 @@ NODE_SERVER_HOST={your ip-addres or domainname} (ex.: 127.0.0.1, 192.168.0.6)
 NODE_SERVER_PORT={your port for the server} (ex.: 8080)  
 NODE_SERVER_PROTOCOL={your port for the server} (ex.: 8080)  
 MONGODB_CONNECTION={your mongodb connection string}
-SKIP_PREFLIGHT_CHECK=true
 AUTH_BCRYPT_SALT={your salt value for passwords} (ex.: 10) 
 AUTH_JWT_SECRET={your JWT secret} (ex.: gdm_nmd_mobdev2) 
 AUTH_JWT_SESSION={your JWT session true or false} 
@@ -48,7 +47,6 @@ AUTH_FACEBOOK_CLIENT_SECRET={your Facebook Client secret}
 Create a `.env`-file under the `client` folder following contents:
 
 ```
-SKIP_PREFLIGHT_CHECK=true
 REACT_APP_API_URL=/api
 ```
 

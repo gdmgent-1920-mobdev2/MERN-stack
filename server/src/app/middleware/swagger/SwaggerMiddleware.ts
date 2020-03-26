@@ -1,6 +1,9 @@
 import { Application, Request, Response } from 'express';
 import swaggerJsdoc from 'swagger-jsdoc';
-import { serve as swaggerServe, setup as swaggerSetup } from 'swagger-ui-express';
+import {
+  serve as swaggerServe,
+  setup as swaggerSetup,
+} from 'swagger-ui-express';
 import path from 'path';
 
 import { IConfig } from '../../services';
@@ -26,6 +29,6 @@ class SwaggerMiddleware {
 
     app.use('/api/docs', swaggerServe, swaggerSetup(swaggerSpecs));
   }
-};
+}
 
 export default SwaggerMiddleware;

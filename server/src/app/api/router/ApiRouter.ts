@@ -5,7 +5,11 @@ import {
   Response,
   Router,
 } from 'express';
-import { HelloController, MessageController, PostController } from '../controllers';
+import {
+  HelloController,
+  MessageController,
+  PostController,
+} from '../controllers';
 
 class ApiRouter {
   public router: Router;

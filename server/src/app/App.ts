@@ -8,7 +8,11 @@ import {
 } from 'express';
 
 import { default as Router } from './router';
-import { GlobalMiddleware, MorganMiddleware, SwaggerMiddleware } from './middleware';
+import {
+  GlobalMiddleware,
+  MorganMiddleware,
+  SwaggerMiddleware,
+} from './middleware';
 import { IAppError } from './utilities';
 import { IConfig, Environment } from './services/config';
 import { ILogger } from './services/logger';

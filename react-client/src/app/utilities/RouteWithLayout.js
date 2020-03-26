@@ -1,4 +1,4 @@
-import React, { } from 'react';
+import { default as React } from 'react';
 import { Route as ReactRoute } from 'react-router';
 
 const renderMergedProps = (component, layout, routeProps) => {

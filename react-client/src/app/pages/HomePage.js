@@ -1,8 +1,13 @@
 import { default as React} from 'react';
 
+import { useApi } from '../services';
+import { PostList } from '../components';
+
 const HomePage = ({children}) => {
   return (
-    <p>HELLO HOME</p>
+    <div className="post-list">
+      <PostList />
+    </div>
   );
 };
 

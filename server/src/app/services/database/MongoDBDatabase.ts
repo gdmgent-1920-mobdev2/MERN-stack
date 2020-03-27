@@ -10,6 +10,8 @@ import {
   User,
   Post,
   IPost,
+  ICategory,
+  Category
 } from '../../models/mongoose';
 
 class MongoDBDatabase {
@@ -17,15 +19,17 @@ class MongoDBDatabase {
   private logger: ILogger;
   private db: Connection;
 
-  private users: Array<IUser>;
+  private categories: Array<ICategory>;
   private posts: Array<IPost>;
+  private users: Array<IUser>;
 
   constructor(logger: ILogger, config: IConfig) {
     this.logger = logger;
     this.config = config;
 
+    this.categories = [];
     this.posts = [];
-    this.users = [];
+    this.users = [];    
   }
 
   public connect(): Promise<any> {
@@ -153,6 +157,14 @@ class MongoDBDatabase {
     return await Promise.all(promises);
   };
 
+  private getRandomCategory = () => {
+    let category: ICategory = null;
+    if (this.categories && this.categories.length > 0) {
+      category = this.categories[Math.floor(Math.random()*this.categories.length)];
+    }
+    return category;
+  }
+
   private postCreate = async (
     title: string,
     synopsis: string,
@@ -162,6 +174,7 @@ class MongoDBDatabase {
       title,
       synopsis,
       body,
+      _categoryId: this.getRandomCategory()._id
     };
 
     const post: IPost = new Post(postDetail);
@@ -192,6 +205,42 @@ class MongoDBDatabase {
     return await Promise.all(promises);
   };
 
+  private categoryCreate = async (
+    name: string,
+    description: string
+  ) => {
+    const categoryDetail = {
+      name,
+      description,
+    };
+
+    const category: ICategory = new Category(categoryDetail);
+
+    try {
+      const createdCategory = await category.save();
+      this.categories.push(createdCategory);
+
+      this.logger.info(`Category created with id: ${createdCategory._id}`, {});
+    } catch (err) {
+      this.logger.error(`An error occurred when creating a category ${err}`, err);
+    }
+  };
+
+  private createCategories = async () => {
+    const promises = [];
+
+    for (let i = 0; i < 8; i++) {
+      promises.push(
+        this.categoryCreate(
+          faker.lorem.word(),
+          faker.lorem.paragraph()
+        ),
+      );
+    }
+
+    return await Promise.all(promises);
+  };
+
   public seed = async () => {
     const messages = await Message.estimatedDocumentCount()
       .exec()
@@ -209,6 +258,15 @@ class MongoDBDatabase {
           await this.createUsers();
         }
         return User.find().exec();
+      });
+
+    this.categories = await Category.estimatedDocumentCount()
+      .exec()
+      .then(async count => {
+        if (count === 0) {
+          await this.createCategories();
+        }
+        return Category.find().exec();
       });
 
     this.posts = await Post.estimatedDocumentCount()

@@ -59,6 +59,7 @@ const PostListPaged = ({children, onReadMore, ...rest }) => {
         <article key={post._id}>
           <h1>{post.title}</h1>
           <div>{post.synopsis}</div>
+          <div>{post._categoryId}</div>
           <button onClick={ev => handleReadMore(ev, post._id)}>Read more...</button>
         </article>
       ))}

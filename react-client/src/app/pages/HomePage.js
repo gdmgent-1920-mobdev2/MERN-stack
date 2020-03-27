@@ -13,7 +13,7 @@ const HomePage = ({children}) => {
 
   return (
     <div>
-      <SlantContainer shape={2} color={'black-400'}>
+      <SlantContainer shape={2} angle={5} color={'purple-700'}>
         <PostList className="post-list" onReadMore={handlePostReadMore} />
       </SlantContainer>
     </div>

@@ -41,5 +41,29 @@
             background: palette-color($palette-black, 700);
             color: palette-color($palette-white, 700);
         }
+        &-purple-200 {
+            background: palette-color($palette-purple, 200);
+            color: palette-color($palette-white, 200);
+        }
+        &-purple-300 {
+            background: palette-color($palette-purple, 300);
+            color: palette-color($palette-white, 300);
+        }
+        &-purple-400 {
+            background: palette-color($palette-purple, 400);
+            color: palette-color($palette-white, 400);
+        }
+        &-purple-500 {
+            background: palette-color($palette-purple, 500);
+            color: palette-color($palette-white, 500);
+        }
+        &-purple-600 {
+            background: palette-color($palette-purple, 600);
+            color: palette-color($palette-white, 600);
+        }
+        &-purple-700 {
+            background: palette-color($palette-purple, 700);
+            color: palette-color($palette-white, 700);
+        }
     }
 }

@@ -1,7 +1,7 @@
 import { default as React} from 'react';
 import { useHistory } from 'react-router';
 
-import { PostList } from '../components';
+import { PostListPaged } from '../components';
 import * as Routes from '../routes';
 
 const PostsPage = ({children}) => {
@@ -13,7 +13,7 @@ const PostsPage = ({children}) => {
 
   return (
     <div>
-      <PostList className="post-list" onReadMore={handlePostReadMore} />
+      <PostListPaged className="post-list" onReadMore={handlePostReadMore} />
     </div>
   );
 };

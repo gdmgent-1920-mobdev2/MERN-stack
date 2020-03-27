@@ -8,8 +8,11 @@ const useApi = () => useContext(ApiContext);
 const ApiProvider = ({children}) => {
   const BASE_URL = `${apiConfig.baseURL}`;
 
-  const findAllPosts = async () => {
+  const findAllPosts = async (query = null) => {
     let url = `${BASE_URL}/posts`;
+    if (query !== null) {
+      url += (url.indexOf('?') === -1 ? '?' : '&') + queryParams(query);
+    }
     const response = await fetch(url);
     return response.json();
   }
@@ -18,6 +21,11 @@ const ApiProvider = ({children}) => {
     let url = `${BASE_URL}/posts/${postId}`;
     const response = await fetch(url);
     return response.json();
+  }
+
+  const queryParams = (options) => {
+    return Object.keys(options)
+      .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(options[key])).join('&');
   }
 
   return (

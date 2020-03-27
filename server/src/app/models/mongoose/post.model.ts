@@ -1,4 +1,5 @@
-import { default as mongoose, Schema, Document } from 'mongoose';
+import { default as mongoose, Schema, Document, PaginateModel } from 'mongoose';
+import { default as mongoosePaginate } from 'mongoose-paginate';
 
 interface IPost extends Document {
   title: string;
@@ -7,6 +8,10 @@ interface IPost extends Document {
   _createdAt: number;
   _modifiedAt: number;
   _deletedAt: number;
+}
+
+interface IPostModel extends PaginateModel<IPost> {
+
 }
 
 const postSchema: Schema = new Schema({
@@ -29,6 +34,7 @@ const postSchema: Schema = new Schema({
   _deletedAt: { type: Number, required: false, default: null },
 });
 
-const Post = mongoose.model<IPost>('Post', postSchema);
+postSchema.plugin(mongoosePaginate);
+const Post = mongoose.model<IPost, IPostModel>('Post', postSchema);
 
 export { IPost, Post, postSchema };

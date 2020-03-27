@@ -10,9 +10,7 @@ interface IPost extends Document {
   _deletedAt: number;
 }
 
-interface IPostModel extends PaginateModel<IPost> {
-
-}
+interface IPostModel extends PaginateModel<IPost> {}
 
 const postSchema: Schema = new Schema({
   title: {

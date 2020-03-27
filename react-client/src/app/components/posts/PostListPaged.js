@@ -14,12 +14,11 @@ const PostListPaged = ({children, onReadMore, ...rest }) => {
 
   const initFetch = useCallback(
     () => {
-      const options = {
-        limit: pagination.limit,
-        skip: currentPageIndex
-      }
       const fetchPosts = async () => {
-        const data = await findAllPosts(options);
+        const data = await findAllPosts({
+          limit: pagination.limit,
+          skip: currentPageIndex
+        });
         setPosts(data.docs);
         setPagination({
           limit: data.limit,
@@ -31,7 +30,7 @@ const PostListPaged = ({children, onReadMore, ...rest }) => {
 
       fetchPosts();
     },
-    [findAllPosts, currentPageIndex],
+    [findAllPosts, currentPageIndex, pagination.limit],
   )
 
   useEffect(() => {

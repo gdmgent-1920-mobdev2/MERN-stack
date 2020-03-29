@@ -24,6 +24,10 @@ const CategorySchema: Schema = new Schema(
     _modifiedAt: { type: Number, required: false, default: null },
     _deletedAt: { type: Number, required: false, default: null },
   },
+  {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true}
+  },
 );
 
 CategorySchema.methods.slugify = function () {

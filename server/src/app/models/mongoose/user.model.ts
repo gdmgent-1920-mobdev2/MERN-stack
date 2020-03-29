@@ -1,6 +1,8 @@
 import { default as mongoose, Schema, Document } from 'mongoose';
 import { default as bcrypt } from 'bcrypt';
 
+import { IMessage } from './message.model';
+
 interface ILocalProvider {
   password: string;
 }
@@ -27,45 +29,54 @@ interface IUser extends Document {
 
   role: string;
   profile?: IProfile;
+
+  _messageIds?: Array<IMessage['_id']>;
 }
 
-const userSchema: Schema = new Schema({
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  _createdAt: { type: Number, required: true, default: Date.now() },
-  _modifiedAt: { type: Number, required: false, default: null },
-  _deletedAt: { type: Number, required: false, default: null },
-  localProvider: {
-    password: {
+const userSchema: Schema = new Schema(
+  {
+    email: {
       type: String,
-      required: false,
+      required: true,
+      unique: true,
     },
-  },
-  facebookProvider: {
-    id: {
+    _createdAt: { type: Number, required: true, default: Date.now() },
+    _modifiedAt: { type: Number, required: false, default: null },
+    _deletedAt: { type: Number, required: false, default: null },
+    localProvider: {
+      password: {
+        type: String,
+        required: false,
+      },
+    },
+    facebookProvider: {
+      id: {
+        type: String,
+        required: false,
+      },
+      token: {
+        type: String,
+        required: false,
+      },
+    },
+    role: {
       type: String,
-      required: false,
+      enum: ['user', 'administrator'],
+      default: 'user',
+      required: true,
     },
-    token: {
-      type: String,
-      required: false,
+    profile: {
+      firstName: String,
+      lastName: String,
+      avatar: String,
     },
+    _messageIds: [{ type: Schema.Types.ObjectId, ref: 'Message', required: false }],
   },
-  role: {
-    type: String,
-    enum: ['user', 'administrator'],
-    default: 'user',
-    required: true,
+  {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true}
   },
-  profile: {
-    firstName: String,
-    lastName: String,
-    avatar: String,
-  },
-});
+);
 
 userSchema.pre('save', function(next) {
   const user: IUser = this as IUser;
@@ -86,6 +97,14 @@ userSchema.pre('save', function(next) {
   } catch (err) {
     return next(err);
   }
+});
+
+userSchema.virtual('id').get(function () { return this._id; });
+userSchema.virtual('messages', {
+  ref: 'Message',
+  localField: '_messageIds',
+  foreignField: '_id',
+  justOne: false,
 });
 
 const User = mongoose.model<IUser>('User', userSchema);

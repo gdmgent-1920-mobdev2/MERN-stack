@@ -5,3 +5,7 @@ export const POSTS = '/posts';
 export const POST_DETAIL = '/posts/:id';
 export const AUTH_SIGN_IN = '/auth/signin';
 export const AUTH_SIGNUP = '/auth/signup';
+
+export const BACKOFFICE_LANDING = '/admin';
+export const BACKOFFICE_DASHBOARD = '/admin/dashboard';
+export const BACKOFFICE_POSTS = '/admin/posts';

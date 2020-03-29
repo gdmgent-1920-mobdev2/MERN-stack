@@ -4,6 +4,8 @@ import { default as faker } from 'faker';
 import { ILogger } from '../logger';
 import { IConfig } from '../config';
 import {
+  IBlog,
+  Blog,
   IMessage,
   Message,
   IUser,
@@ -19,14 +21,16 @@ class MongoDBDatabase {
   private logger: ILogger;
   private db: Connection;
 
+  private blogs: Array<IBlog>;
   private categories: Array<ICategory>;
   private posts: Array<IPost>;
-  private users: Array<IUser>;
+  private users: Array<IUser>;  
 
   constructor(logger: ILogger, config: IConfig) {
     this.logger = logger;
     this.config = config;
 
+    this.blogs = [];    
     this.categories = [];
     this.posts = [];
     this.users = [];    
@@ -82,17 +86,12 @@ class MongoDBDatabase {
   };
 
   private createMessages = async () => {
-    await Promise.all([
-      (async () => this.messageCreate(faker.lorem.paragraph()))(),
-      (async () => this.messageCreate(faker.lorem.paragraph()))(),
-      (async () => this.messageCreate(faker.lorem.paragraph()))(),
-      (async () => this.messageCreate(faker.lorem.paragraph()))(),
-      (async () => this.messageCreate(faker.lorem.paragraph()))(),
-      (async () => this.messageCreate(faker.lorem.paragraph()))(),
-      (async () => this.messageCreate(faker.lorem.paragraph()))(),
-      (async () => this.messageCreate(faker.lorem.paragraph()))(),
-      (async () => this.messageCreate(faker.lorem.paragraph()))(),
-    ]);
+    const promises = [];
+    for (let i = 0; i < 100; i++) {
+      promises.push(
+        this.messageCreate(faker.lorem.paragraph()),
+      );
+    }
   };
 
   private userCreate = async (
@@ -241,6 +240,53 @@ class MongoDBDatabase {
     return await Promise.all(promises);
   };
 
+  private getRandomPostsAsArrayOfIds(nPosts) {
+    const tempPosts = JSON.parse(JSON.stringify(this.posts)) as Array<IPost>;
+    const arrayOfIds = [];
+    while (arrayOfIds.length < nPosts) {
+      const removedPost = tempPosts.splice(Math.floor(Math.random()*nPosts), 1)[0];
+      arrayOfIds.push(removedPost._id);
+    }
+    return arrayOfIds;
+  }
+
+  private blogCreate = async (
+    title: string,
+    synopsis: string
+  ) => {
+    const blogDetail = {
+      title,
+      synopsis,
+      _postIds: this.getRandomPostsAsArrayOfIds(Math.floor(Math.random()*this.posts.length)),
+    };
+
+    const blog: IBlog = new Blog(blogDetail);
+
+    try {
+      const createdBlog = await blog.save();
+      this.blogs.push(createdBlog);
+
+      this.logger.info(`Blog created with id: ${createdBlog._id}`, {});
+    } catch (err) {
+      this.logger.error(`An error occurred when creating a blog ${err}`, err);
+    }
+  };
+
+  private createBlogs = async () => {
+    const promises = [];
+
+    for (let i = 0; i < 1; i++) {
+      promises.push(
+        this.blogCreate(
+          faker.lorem.word(),
+          faker.lorem.paragraph()
+        ),
+      );
+    }
+
+    return await Promise.all(promises);
+  };
+
   public seed = async () => {
     const messages = await Message.estimatedDocumentCount()
       .exec()
@@ -276,6 +322,15 @@ class MongoDBDatabase {
           await this.createPosts();
         }
         return Post.find().exec();
+      });
+
+    this.blogs = await Blog.estimatedDocumentCount()
+      .exec()
+      .then(async count => {
+        if (count === 0) {
+          await this.createBlogs();
+        }
+        return Blog.find().exec();
       });
   };
 }

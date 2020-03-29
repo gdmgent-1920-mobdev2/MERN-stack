@@ -29,7 +29,7 @@ const postSchema: Schema = new Schema(
     slug: {
       type: String,
       required: true,
-      lowercase: true
+      lowercase: true,
     },
     synopsis: {
       type: String,
@@ -43,26 +43,32 @@ const postSchema: Schema = new Schema(
     _createdAt: { type: Number, required: true, default: Date.now() },
     _modifiedAt: { type: Number, required: false, default: null },
     _deletedAt: { type: Number, required: false, default: null },
-    _categoryId: { type: Schema.Types.ObjectId, ref: 'Category', required: false }
+    _categoryId: {
+      type: Schema.Types.ObjectId,
+      ref: 'Category',
+      required: false,
+    },
   },
   {
     toJSON: { virtuals: true },
-    toObject: { virtuals: true}
+    toObject: { virtuals: true },
   },
 );
 
-postSchema.methods.slugify = function () {
+postSchema.methods.slugify = function() {
   this.slug = slug(this.title);
 };
 
-postSchema.pre<IPost>('validate', function (next) {
+postSchema.pre<IPost>('validate', function(next) {
   if (!this.slug) {
     this.slugify();
   }
   return next();
 });
 
-postSchema.virtual('id').get(function () { return this._id; });
+postSchema.virtual('id').get(function() {
+  return this._id;
+});
 postSchema.virtual('category', {
   ref: 'Category',
   localField: '_categoryId',

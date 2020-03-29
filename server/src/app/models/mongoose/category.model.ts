@@ -12,8 +12,7 @@ interface ICategory extends Document {
   slugify(): void;
 }
 
-interface ICategoryModel extends Model<ICategory> {
-}
+interface ICategoryModel extends Model<ICategory> {}
 
 const CategorySchema: Schema = new Schema(
   {
@@ -26,24 +25,24 @@ const CategorySchema: Schema = new Schema(
   },
   {
     toJSON: { virtuals: true },
-    toObject: { virtuals: true}
+    toObject: { virtuals: true },
   },
 );
 
-CategorySchema.methods.slugify = function () {
+CategorySchema.methods.slugify = function() {
   this.slug = slug(this.name);
 };
 
-CategorySchema.pre<ICategory>('validate', function (next) {
+CategorySchema.pre<ICategory>('validate', function(next) {
   if (!this.slug) {
     this.slugify();
   }
   return next();
 });
 
-const Category = mongoose.model<ICategory, ICategoryModel>('Category', CategorySchema);
+const Category = mongoose.model<ICategory, ICategoryModel>(
+  'Category',
+  CategorySchema,
+);
 
-export {
-  ICategory,
-  Category,
-};
+export { ICategory, Category };

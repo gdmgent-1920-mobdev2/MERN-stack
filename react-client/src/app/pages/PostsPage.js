@@ -13,7 +13,7 @@ const PostsPage = ({children}) => {
 
   return (
     <div>
-      <PostListPaged className="post-list" onReadMore={handlePostReadMore} />
+      <PostListPaged className="post-list" paged={{limit: 6, skip: 1}} onReadMore={handlePostReadMore} />
     </div>
   );
 };

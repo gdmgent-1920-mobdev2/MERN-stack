@@ -1,15 +1,18 @@
 import { default as React, useCallback, useEffect, useState} from 'react';
 import { useApi } from '../../services';
 
-const PostList = ({children, onReadMore, ...rest }) => {
+const PostList = ({children, amount, onReadMore, ...rest }) => {
   const { findAllPosts } = useApi();
   const [ posts, setPosts ] = useState();
 
   const initFetch = useCallback(
     () => {
       const fetchPosts = async () => {
-        const data = await findAllPosts();
-        setPosts(data);
+        const data = await findAllPosts({
+          limit: amount,
+          skip: 1
+        });
+        setPosts(data.docs);
       }
 
       fetchPosts();

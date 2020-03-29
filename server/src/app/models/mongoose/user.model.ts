@@ -70,11 +70,13 @@ const userSchema: Schema = new Schema(
       lastName: String,
       avatar: String,
     },
-    _messageIds: [{ type: Schema.Types.ObjectId, ref: 'Message', required: false }],
+    _messageIds: [
+      { type: Schema.Types.ObjectId, ref: 'Message', required: false },
+    ],
   },
   {
     toJSON: { virtuals: true },
-    toObject: { virtuals: true}
+    toObject: { virtuals: true },
   },
 );
 
@@ -99,7 +101,9 @@ userSchema.pre('save', function(next) {
   }
 });
 
-userSchema.virtual('id').get(function () { return this._id; });
+userSchema.virtual('id').get(function() {
+  return this._id;
+});
 userSchema.virtual('messages', {
   ref: 'Message',
   localField: '_messageIds',

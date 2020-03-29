@@ -13,7 +13,7 @@ import {
   Post,
   IPost,
   ICategory,
-  Category
+  Category,
 } from '../../models/mongoose';
 
 class MongoDBDatabase {
@@ -24,16 +24,16 @@ class MongoDBDatabase {
   private blogs: Array<IBlog>;
   private categories: Array<ICategory>;
   private posts: Array<IPost>;
-  private users: Array<IUser>;  
+  private users: Array<IUser>;
 
   constructor(logger: ILogger, config: IConfig) {
     this.logger = logger;
     this.config = config;
 
-    this.blogs = [];    
+    this.blogs = [];
     this.categories = [];
     this.posts = [];
-    this.users = [];    
+    this.users = [];
   }
 
   public connect(): Promise<any> {
@@ -88,9 +88,7 @@ class MongoDBDatabase {
   private createMessages = async () => {
     const promises = [];
     for (let i = 0; i < 100; i++) {
-      promises.push(
-        this.messageCreate(faker.lorem.paragraph()),
-      );
+      promises.push(this.messageCreate(faker.lorem.paragraph()));
     }
   };
 
@@ -159,10 +157,12 @@ class MongoDBDatabase {
   private getRandomCategory = () => {
     let category: ICategory = null;
     if (this.categories && this.categories.length > 0) {
-      category = this.categories[Math.floor(Math.random()*this.categories.length)];
+      category = this.categories[
+        Math.floor(Math.random() * this.categories.length)
+      ];
     }
     return category;
-  }
+  };
 
   private postCreate = async (
     title: string,
@@ -173,7 +173,7 @@ class MongoDBDatabase {
       title,
       synopsis,
       body,
-      _categoryId: this.getRandomCategory()._id
+      _categoryId: this.getRandomCategory()._id,
     };
 
     const post: IPost = new Post(postDetail);
@@ -204,10 +204,7 @@ class MongoDBDatabase {
     return await Promise.all(promises);
   };
 
-  private categoryCreate = async (
-    name: string,
-    description: string
-  ) => {
+  private categoryCreate = async (name: string, description: string) => {
     const categoryDetail = {
       name,
       description,
@@ -221,7 +218,10 @@ class MongoDBDatabase {
 
       this.logger.info(`Category created with id: ${createdCategory._id}`, {});
     } catch (err) {
-      this.logger.error(`An error occurred when creating a category ${err}`, err);
+      this.logger.error(
+        `An error occurred when creating a category ${err}`,
+        err,
+      );
     }
   };
 
@@ -230,10 +230,7 @@ class MongoDBDatabase {
 
     for (let i = 0; i < 8; i++) {
       promises.push(
-        this.categoryCreate(
-          faker.lorem.word(),
-          faker.lorem.paragraph()
-        ),
+        this.categoryCreate(faker.lorem.word(), faker.lorem.paragraph()),
       );
     }
 
@@ -244,20 +241,22 @@ class MongoDBDatabase {
     const tempPosts = JSON.parse(JSON.stringify(this.posts)) as Array<IPost>;
     const arrayOfIds = [];
     while (arrayOfIds.length < nPosts) {
-      const removedPost = tempPosts.splice(Math.floor(Math.random()*nPosts), 1)[0];
+      const removedPost = tempPosts.splice(
+        Math.floor(Math.random() * nPosts),
+        1,
+      )[0];
       arrayOfIds.push(removedPost._id);
     }
     return arrayOfIds;
   }
 
-  private blogCreate = async (
-    title: string,
-    synopsis: string
-  ) => {
+  private blogCreate = async (title: string, synopsis: string) => {
     const blogDetail = {
       title,
       synopsis,
-      _postIds: this.getRandomPostsAsArrayOfIds(Math.floor(Math.random()*this.posts.length)),
+      _postIds: this.getRandomPostsAsArrayOfIds(
+        Math.floor(Math.random() * this.posts.length),
+      ),
     };
 
     const blog: IBlog = new Blog(blogDetail);
@@ -277,10 +276,7 @@ class MongoDBDatabase {
 
     for (let i = 0; i < 1; i++) {
       promises.push(
-        this.blogCreate(
-          faker.lorem.word(),
-          faker.lorem.paragraph()
-        ),
+        this.blogCreate(faker.lorem.word(), faker.lorem.paragraph()),
       );
     }
 

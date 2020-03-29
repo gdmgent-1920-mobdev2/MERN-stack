@@ -15,7 +15,7 @@ class BlogController {
         };
         blogs = await Blog.paginate({}, options);
       } else {
-        blogs = await Blog.find()          
+        blogs = await Blog.find()
           .sort({ _createdAt: -1 })
           .exec();
       }
@@ -30,7 +30,9 @@ class BlogController {
     try {
       const { id } = req.params;
 
-      const blog = await Blog.findById(id).populate('posts').exec();
+      const blog = await Blog.findById(id)
+        .populate('posts')
+        .exec();
       return res.status(200).json(blog);
     } catch (err) {
       next(err);

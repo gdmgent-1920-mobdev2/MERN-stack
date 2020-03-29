@@ -56,7 +56,7 @@ class ApiRouter {
      */
     this.router.get('/posts', this.postController.index);
     this.router.get('/posts/create', this.postController.create); // Must be before the route /posts/:id
-    this.router.get('/posts/:id', this.postController.show);    
+    this.router.get('/posts/:id', this.postController.show);
     this.router.post('/posts', this.postController.store);
     this.router.get('/posts/:id/edit', this.postController.edit);
     this.router.put('/posts/:id', this.postController.update);

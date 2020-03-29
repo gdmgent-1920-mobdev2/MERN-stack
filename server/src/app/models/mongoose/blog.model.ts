@@ -28,7 +28,7 @@ const blogSchema: Schema = new Schema(
     slug: {
       type: String,
       required: true,
-      lowercase: true
+      lowercase: true,
     },
     synopsis: {
       type: String,
@@ -38,19 +38,19 @@ const blogSchema: Schema = new Schema(
     _createdAt: { type: Number, required: true, default: Date.now() },
     _modifiedAt: { type: Number, required: false, default: null },
     _deletedAt: { type: Number, required: false, default: null },
-    _postIds: [{ type: Schema.Types.ObjectId, ref: 'Post', required: false }]
+    _postIds: [{ type: Schema.Types.ObjectId, ref: 'Post', required: false }],
   },
   {
     toJSON: { virtuals: true },
-    toObject: { virtuals: true}
+    toObject: { virtuals: true },
   },
 );
 
-blogSchema.methods.slugify = function () {
+blogSchema.methods.slugify = function() {
   this.slug = slug(this.title);
 };
 
-blogSchema.pre<IBlog>('validate', function (next) {
+blogSchema.pre<IBlog>('validate', function(next) {
   if (!this.slug) {
     this.slugify();
   }

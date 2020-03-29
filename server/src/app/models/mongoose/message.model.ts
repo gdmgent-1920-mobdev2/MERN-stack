@@ -16,7 +16,7 @@ const messageSchema: Schema = new Schema(
   },
   {
     toJSON: { virtuals: true },
-    toObject: { virtuals: true}
+    toObject: { virtuals: true },
   },
 );
 

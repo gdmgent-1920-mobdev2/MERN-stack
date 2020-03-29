@@ -1,12 +1,12 @@
 import { default as React, useCallback, useEffect, useState} from 'react';
 import { useApi } from '../../services';
 
-const PostListPaged = ({children, onReadMore, ...rest }) => {
+const PostListPaged = ({children, paged, onReadMore, ...rest }) => {
   const { findAllPosts } = useApi();
   const [ posts, setPosts ] = useState();
   const [ pagination, setPagination ] = useState({
-    limit: 5,
-    page: 1,
+    limit: paged.limit,
+    page: paged.skip,
     pages: 1,
     total: 1
   });

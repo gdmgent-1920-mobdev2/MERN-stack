@@ -12,7 +12,7 @@ const PostsPage = ({children}) => {
   };
 
   return (
-    <div>
+    <div className="">
       <PageSection className="news" title={'Nieuws'} subTitle={'Ontdekt de laatste nieuwe weetjes'}>
         <PostListPaged className="post-list align-items-center" paged={{limit: 6, skip: 1}} onReadMore={handlePostReadMore} />
       </PageSection>

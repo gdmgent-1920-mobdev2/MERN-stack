@@ -1,9 +1,13 @@
 import React, { Fragment, useState } from 'react';
+import { Sidebar } from '../admin/components';
+
+import './BackofficeLayout.scss';
 
 const BackofficeLayout = ({ children }) => {
 
   return (
-    <div>
+    <div className="backoffice">
+      <Sidebar />
       {children}
     </div>
   )

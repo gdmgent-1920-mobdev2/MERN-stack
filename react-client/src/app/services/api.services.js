@@ -23,13 +23,25 @@ const ApiProvider = ({children}) => {
     return response.json();
   }
 
+  const deletePost = async (id, mode = 0) => {
+    const options = {
+      method: "delete",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+    }
+    const response = await fetch(`${BASE_URL}/posts/${id}?mode=${mode}`, options);
+    return await response.json();
+  }
+
   const queryParams = (options) => {
     return Object.keys(options)
       .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(options[key])).join('&');
   }
 
   return (
-    <ApiContext.Provider value={{ findAllPosts, findPost }}>
+    <ApiContext.Provider value={{ deletePost, findAllPosts, findPost }}>
       {children}
     </ApiContext.Provider>
   );

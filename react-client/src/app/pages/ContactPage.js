@@ -1,8 +1,14 @@
 import { default as React} from 'react';
 
+import { PageSection } from '../components';
+
 const ContactPage = ({children}) => {
   return (
-    <p>HELLO CONTACT</p>
+    <div className="">
+      <PageSection className="contact" title={'Contact'} subTitle={'Voor snelle reactie, contacteer ons'}>
+        
+      </PageSection>
+    </div>
   );
 };
 

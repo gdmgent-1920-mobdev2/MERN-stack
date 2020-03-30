@@ -1,0 +1,11 @@
+.backoffice {
+    height: 100vh;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+    & .main {
+        width: 100%;
+    }
+}

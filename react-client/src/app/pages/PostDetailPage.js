@@ -31,9 +31,9 @@ const PostDetailPage = ({children}) => {
   }, [initFetch, id]);
 
   return (
-    <Fragment>
+    <div className="">
       <PostDetail post={post} />
-    </Fragment>
+    </div>
   );
 };
 

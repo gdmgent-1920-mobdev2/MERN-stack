@@ -13,11 +13,12 @@ const Navigation = ({children}) => {
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div className="navbar-nav">
+      <div className="collapse navbar-collapse  justify-content-end" id="navbarNavAltMarkup">
+        <div className="navbar-nav d-flex">
           <NavLink className="nav-item nav-link" activeClassName="active" to={Routes.LANDING}>Home</NavLink>
           <NavLink className="nav-item nav-link" activeClassName="active" to={Routes.POSTS}>Nieuws</NavLink>
           <NavLink className="nav-item nav-link" activeClassName="active" to={Routes.CONTACT}>Contact</NavLink>
+          <NavLink className="nav-item nav-link" activeClassName="active" to={Routes.AUTH_SIGN_IN}>Sign In</NavLink>
         </div>
       </div>
     </nav>

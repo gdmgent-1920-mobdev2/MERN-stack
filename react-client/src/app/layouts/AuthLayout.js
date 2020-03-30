@@ -1,9 +1,11 @@
 import React, { Fragment, useState } from 'react';
 
+import './AuthLayout.scss';
+
 const AuthLayout = ({ children }) => {
 
   return (
-    <div>
+    <div className="auth">
       {children}
     </div>
   )

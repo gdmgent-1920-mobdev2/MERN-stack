@@ -168,11 +168,13 @@ class MongoDBDatabase {
     title: string,
     synopsis: string,
     body: string,
+    imageUrl: string,
   ) => {
     const postDetail = {
       title,
       synopsis,
       body,
+      imageUrl,
       _categoryId: this.getRandomCategory()._id,
     };
 
@@ -191,12 +193,13 @@ class MongoDBDatabase {
   private createPosts = async () => {
     const promises = [];
 
-    for (let i = 0; i < 16; i++) {
+    for (let i = 0; i < 28; i++) {
       promises.push(
         this.postCreate(
           faker.lorem.sentence(),
           faker.lorem.paragraph(),
           `<p>${faker.lorem.paragraphs(10, '</p><p>')}</p>`,
+          `https://picsum.photos/seed/${i}/800/450`,
         ),
       );
     }

@@ -141,13 +141,11 @@ class PostController {
       if (!post) {
         throw new NotFoundError();
       } else {
-        return res
-          .status(200)
-          .json({
-            message: `Successful ${mode} the Post with id: ${id}!`,
-            post,
-            mode,
-          });
+        return res.status(200).json({
+          message: `Successful ${mode} the Post with id: ${id}!`,
+          post,
+          mode,
+        });
       }
     } catch (err) {
       next(err);

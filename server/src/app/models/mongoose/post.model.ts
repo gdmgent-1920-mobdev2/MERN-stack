@@ -8,6 +8,7 @@ interface IPost extends Document {
   slug: string;
   synopsis: string;
   body: string;
+  imageUrl: string;
   _createdAt: number;
   _modifiedAt: number;
   _deletedAt: number;
@@ -39,6 +40,10 @@ const postSchema: Schema = new Schema(
     body: {
       type: String,
       required: true,
+    },
+    imageUrl: {
+      type: String,
+      required: false,
     },
     _createdAt: { type: Number, required: true, default: Date.now() },
     _modifiedAt: { type: Number, required: false, default: null },

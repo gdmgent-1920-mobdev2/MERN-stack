@@ -1,7 +1,7 @@
 import { default as React} from 'react';
 import { useHistory } from 'react-router';
 
-import { PostListPaged } from '../components';
+import { PostListPaged, PageSection } from '../components';
 import * as Routes from '../routes';
 
 const PostsPage = ({children}) => {
@@ -13,7 +13,9 @@ const PostsPage = ({children}) => {
 
   return (
     <div>
-      <PostListPaged className="post-list" paged={{limit: 6, skip: 1}} onReadMore={handlePostReadMore} />
+      <PageSection className="news" title={'Nieuws'} subTitle={'Ontdekt de laatste nieuwe weetjes'}>
+        <PostListPaged className="post-list align-items-center" paged={{limit: 6, skip: 1}} onReadMore={handlePostReadMore} />
+      </PageSection>
     </div>
   );
 };

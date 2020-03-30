@@ -1,7 +1,8 @@
 import { default as React, useCallback, useEffect, useState} from 'react';
+import { default as classnames } from 'classnames';
 import { useApi } from '../../services';
 
-const PostList = ({children, amount, onReadMore, ...rest }) => {
+const PostList = ({children, amount, onReadMore, className, ...rest }) => {
   const { findAllPosts } = useApi();
   const [ posts, setPosts ] = useState();
 
@@ -36,13 +37,21 @@ const PostList = ({children, amount, onReadMore, ...rest }) => {
   };
 
   return (
-    <div className="post-list">
+    <div className={classnames('row post-list', className)}>
       {posts && posts.map((post, index) => (
-        <article key={post._id}>
-          <h1>{post.title}</h1>
-          <div>{post.synopsis}</div>
-          <button onClick={ev => handleReadMore(ev, post._id)}>Read more...</button>
-        </article>
+        <div className="col-12 col-sm-12 col-md-6 col-lg-4" key={index}>
+          <article className="card" key={post._id}>
+            <picture class="card-img-top">
+              <img src={post.imageUrl} alt={post.title} />
+            </picture>
+            <div class="card-body">
+              <h5 class="card-title">{post.title}</h5>
+              <p class="card-text">{post.synopsis}</p>
+              <a href="#" class="btn btn-primary" onClick={ev => handleReadMore(ev, post._id)}>Lees meer</a>
+            </div>
+          </article>
+        </div>
+        
       ))}
     </div>
   );

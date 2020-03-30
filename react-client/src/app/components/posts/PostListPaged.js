@@ -1,7 +1,8 @@
 import { default as React, useCallback, useEffect, useState} from 'react';
+import { default as classnames } from 'classnames';
 import { useApi } from '../../services';
 
-const PostListPaged = ({children, paged, onReadMore, ...rest }) => {
+const PostListPaged = ({children, paged, onReadMore, className, ...rest }) => {
   const { findAllPosts } = useApi();
   const [ posts, setPosts ] = useState();
   const [ pagination, setPagination ] = useState({
@@ -54,16 +55,31 @@ const PostListPaged = ({children, paged, onReadMore, ...rest }) => {
   }
 
   return (
-    <div className="post-list">
+    <div className={classnames('row post-list', className)}>
       {posts && posts.map((post, index) => (
-        <article key={post._id}>
-          <h1>{post.title}</h1>
-          <div>{post.synopsis}</div>
-          <div>{post._categoryId}</div>
-          <button onClick={ev => handleReadMore(ev, post._id)}>Read more...</button>
-        </article>
+        <div className="col-12 col-sm-12 col-md-6 col-lg-4" key={index}>
+          <article className="card" key={post._id}>
+            <picture class="card-img-top">
+              <img src={post.imageUrl} alt={post.title} />
+            </picture>
+            <div class="card-body">
+              <h5 class="card-title">{post.title}</h5>
+              <p class="card-text">{post.synopsis}</p>
+              <a href="#" class="btn btn-primary" onClick={ev => handleReadMore(ev, post._id)}>Lees meer</a>
+            </div>
+          </article>
+        </div>
+        
       ))}
-      {posts && pagination.page < pagination.pages ? <button onClick={ev => handleLoadMore(ev, pagination.page + 1)}>Meer laden...</button> : ''}
+      {!!posts && pagination.page < pagination.pages ? (
+        <div className="container">
+          <div className="row">
+            <div className="col-12 text-center">
+              {posts && pagination.page < pagination.pages ? <button className="btn btn-outline-primary" onClick={ev => handleLoadMore(ev, pagination.page + 1)}>Meer nieuws laden...</button> : ''}
+            </div>
+          </div> 
+        </div>       
+      ) : ''}
     </div>
   );
 };

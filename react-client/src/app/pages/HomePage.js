@@ -1,7 +1,7 @@
-import { default as React} from 'react';
+import { default as React, Fragment} from 'react';
 import { useHistory } from 'react-router';
 
-import { PostList, SlantContainer } from '../components';
+import { PostList, PageSection } from '../components';
 import * as Routes from '../routes';
 
 const HomePage = ({children}) => {
@@ -12,11 +12,11 @@ const HomePage = ({children}) => {
   };
 
   return (
-    <div>
-      <SlantContainer shape={2} angle={5} color={'purple-700'}>
-        <PostList className="post-list" amount={3} onReadMore={handlePostReadMore} />
-      </SlantContainer>
-    </div>
+    <Fragment>
+      <PageSection className="news" title={'Nieuws'} subTitle={'Ontdekt de laatste nieuwe weetjes'} readMoreRoute={'/posts'}>
+        <PostList className="post-list align-items-center" amount={3} onReadMore={handlePostReadMore}  />
+      </PageSection>
+    </Fragment>
   );
 };
 

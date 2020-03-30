@@ -9,11 +9,11 @@ import './Sidebar.scss';
 const Sidebar = ({children}) => {
   return (
     <div className="navbar-nav sidebar accordion" id="accordionSidebar">
-      <Link class="sidebar-brand d-flex align-items-center justify-content-center" to={Routes.BACKOFFICE_LANDING}>
-        <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
+      <Link className="sidebar-brand d-flex align-items-center justify-content-center" to={Routes.BACKOFFICE_LANDING}>
+        <div className="sidebar-brand-icon rotate-n-15">
+          <i className="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">GDM Admin <sup>2</sup></div>
+        <div className="sidebar-brand-text mx-3">GDM Admin <sup>2</sup></div>
       </Link>
       <hr className="sidebar-divider" />
       <Navigation />

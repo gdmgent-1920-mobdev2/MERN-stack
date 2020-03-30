@@ -6,13 +6,16 @@ import $ from 'jquery';
 
 import * as Routes from '../../../routes';
 import { useApi } from '../../../services/';
+import { useToast } from '../../services';
 
 import PostsTable from './PostsTable';
 
 import './PostList.scss';
 
+
 const PostList = ({children, className, limit = 10, skip = 1}) => {  
   const { deletePost, findAllPosts } = useApi();
+  const { addToast } = useToast();
   const [ posts, setPosts ] = useState();
   const [ currentPageIndex, setCurrentPageIndex ] = useState(skip);
   const [ pagination, setPagination ] = useState({
@@ -62,6 +65,11 @@ const PostList = ({children, className, limit = 10, skip = 1}) => {
   const handleDeleteConfirm = () => {
     const deleted = deletePost(postToDelete.post.id, postToDelete.mode);
 
+    addToast({
+      title: `Admin: Post`,
+      message: `Succesfully deleted the post with id ${postToDelete.post.id} and title ${postToDelete.post.title}`
+    });
+
     $('#confirmModal').modal('hide');
 
     setPostToDelete(null);
@@ -92,21 +100,21 @@ const PostList = ({children, className, limit = 10, skip = 1}) => {
           </nav>
         </div>
       </div>
-      <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <div className="modal fade" id="confirmModal" tabIndex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
+        <div className="modal-dialog" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>
+              <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body">
+            <div className="modal-body">
               ...
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary" onClick={ev => handleDeleteConfirm(ev)}>Delete</button>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" className="btn btn-primary" onClick={ev => handleDeleteConfirm(ev)}>Delete</button>
             </div>
           </div>
         </div>

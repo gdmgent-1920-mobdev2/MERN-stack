@@ -1,10 +1,11 @@
 import React, { Fragment, useState } from 'react';
+import { PostEdit } from '../components';
 
 const PostEditPage = ({ children }) => {
 
   return (
     <div>
-      POSTS EDIT PAGE
+      <PostEdit />
     </div>
   )
 };

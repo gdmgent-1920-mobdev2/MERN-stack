@@ -7,6 +7,7 @@ const BackofficeLayout = ({ children }) => {
 
   return (
     <div className="backoffice">
+      
       <Sidebar />
       {children}
     </div>

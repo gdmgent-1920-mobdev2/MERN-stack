@@ -17,9 +17,57 @@ const ApiProvider = ({children}) => {
     return response.json();
   }
 
-  const findPost = async (postId) => {
-    let url = `${BASE_URL}/posts/${postId}`;
+  const findPost = async (id) => {
+    let url = `${BASE_URL}/posts/${id}`;
     const response = await fetch(url);
+    return response.json();
+  }
+
+  const createPost = async (post) => {
+    let url = `${BASE_URL}/posts/create`;
+    const response = await fetch(url);
+    return response.json();
+  }
+
+  const storePost = async (post) => {
+    const options = {
+      method: "post",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+    };
+
+    let url = `${BASE_URL}/posts/create`;
+    const response = await fetch(url, options);
+    return response.json();
+  }
+
+  const editPost = async (post) => {
+    const options = {
+      method: "get",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+    };
+
+    let url = `${BASE_URL}/posts/${post._id}/edit`;
+    const response = await fetch(url, options);
+    return response.json();
+  }
+
+  const updatePost = async (post) => {
+    const options = {
+      method: "put",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+    };
+
+    let url = `${BASE_URL}/posts/${post._id}`;
+    const response = await fetch(url, options);
     return response.json();
   }
 

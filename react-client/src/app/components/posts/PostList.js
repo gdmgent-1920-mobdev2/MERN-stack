@@ -47,7 +47,7 @@ const PostList = ({children, amount, onReadMore, className, ...rest }) => {
             <div class="card-body">
               <h5 class="card-title">{post.title}</h5>
               <p class="card-text">{post.synopsis}</p>
-              <a href="#" class="btn btn-primary" onClick={ev => handleReadMore(ev, post._id)}>Lees meer</a>
+              <button href="#" class="btn btn-primary" onClick={ev => handleReadMore(ev, post._id)}>Lees meer</button>
             </div>
           </article>
         </div>

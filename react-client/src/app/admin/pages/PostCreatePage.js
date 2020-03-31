@@ -4,9 +4,11 @@ import { useHistory } from 'react-router-dom';
 import * as Routes from '../../routes';
 import { PostEdit } from '../components';
 import { useApi } from '../../services';
+import { useToast } from '../services';
 
 
 const PostCreatePage = ({ children }) => {
+  const { addToast } = useToast();
   const { createPostViewModel, storePost } = useApi();
   const [ postViewModel, setPostViewModel ] = useState(null);
 
@@ -22,8 +24,11 @@ const PostCreatePage = ({ children }) => {
   }, [createPostViewModel]);
 
   const handleOnSave = async (post) => {
-    console.log(post);
     const storedPost = await storePost(post);
+    addToast({
+      title: `Administration: New Post`,
+      message: `Successfully created a new post with id: ${storedPost._id} and title: ${storedPost.title}`
+    });
     history.push(Routes.BACKOFFICE_POSTS);
   }
   

@@ -65,6 +65,7 @@ const ApiProvider = ({children}) => {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
+      body: JSON.stringify(post)
     };
 
     let url = `${BASE_URL}/posts/${post._id}`;

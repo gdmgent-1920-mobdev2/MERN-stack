@@ -1,9 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import Select from 'react-select';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-
-import { useApi } from '../../../services';
 
 const PostEdit = ({className, children, viewModel, onSave = null, onUpdate = null}) => {
   const [postForm, setPostForm] = useState({
@@ -27,12 +24,21 @@ const PostEdit = ({className, children, viewModel, onSave = null, onUpdate = nul
   const handleSubmit = (ev) => {
     ev.preventDefault();
 
-    onSave({
+    const post = {
       title: postForm.txtTitle,
       synopsis: postForm.txtSynopsis,
       body: postForm.txtBody,
       _categoryId: postForm.ddlCategory
-    });
+    };
+
+    if (viewModel.post === null) {
+      onSave(post);
+    } else {
+      onUpdate({
+        ...post,
+        _id: viewModel.post._id
+      })
+    }
   }
 
   const handleInputChange = (ev) => {
@@ -43,7 +49,6 @@ const PostEdit = ({className, children, viewModel, onSave = null, onUpdate = nul
   }
 
   const handleSelectChange = (ev) => {
-    console.log(ev);
     setPostForm({
       ...postForm,
       [ev.target.name]: ev.target.options[ev.target.selectedIndex].value
@@ -51,7 +56,7 @@ const PostEdit = ({className, children, viewModel, onSave = null, onUpdate = nul
   }
   
   return (
-    <div className={className}>
+    <div className={classnames(className)}>
       <div className="card shadow mb-4">
         <div className="card-header py-3">
   <h6 className="m-0 font-weight-bold text-primary">{!!viewModel && !!viewModel.post ? <Fragment>Update the post: {viewModel.post.title}</Fragment> : <Fragment>Create a new post</Fragment>}</h6>
@@ -72,22 +77,23 @@ const PostEdit = ({className, children, viewModel, onSave = null, onUpdate = nul
             </div>
             <div className="form-group">
               <label htmlFor="ddlCategory">Category</label>
-              <select className="form-control" id="ddlCategory" name="ddlCategory"  onChange={handleSelectChange} value={postForm['ddlCategory']}>
+              <select className="form-control" id="ddlCategory" name="ddlCategory" onChange={handleSelectChange} value={postForm['ddlCategory']}>
                 {viewModel && viewModel.categories && viewModel.categories.map((category) => (
                   <option key={category._id} value={category._id}>{category.name}</option>
                 ))}
               </select>
-              {viewModel && viewModel.categories ?
-                (<Select options={viewModel.categories.map(cat => { return { label: cat.name, value: cat._id}})} onChange={handleSelectChange} />)
-                : ''
-              }              
             </div>
-            <button type="submit" className="btn btn-primary">Save post</button>
+            <button type="submit" className="btn btn-primary">{!!viewModel && !!viewModel.post ? 'Update' : 'Save'} post</button>
           </form>          
         </div>
       </div>
     </div>
   );
+};
+
+PostEdit.prototypes = {
+  className: PropTypes.string,
+  viewModel: PropTypes.object
 };
 
 export default PostEdit;

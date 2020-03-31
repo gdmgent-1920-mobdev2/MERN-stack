@@ -4,8 +4,10 @@ import { useHistory, useParams } from 'react-router-dom';
 import * as Routes from '../../routes';
 import { PostEdit } from '../components';
 import { useApi } from '../../services';
+import { useToast } from '../services';
 
 const PostEditPage = ({ children }) => {
+  const { addToast } = useToast();
   const { id } = useParams();
   const { editPostViewModel, updatePost } = useApi();
   const [ postViewModel, setPostViewModel ] = useState(null);
@@ -19,11 +21,14 @@ const PostEditPage = ({ children }) => {
     }
 
     fetchPostViewModel();    
-  }, [editPostViewModel]);
+  }, [editPostViewModel, id]);
 
   const handleOnUpdate = async (post) => {
     const updatedPost = await updatePost(post);
-
+    addToast({
+      title: `Administration: Update Post`,
+      message: `Successfully updated an existing post with id: ${updatedPost._id} and title: ${updatedPost.title}`
+    });
     history.push(Routes.BACKOFFICE_POSTS);
   }
   

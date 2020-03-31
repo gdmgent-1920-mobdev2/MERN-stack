@@ -1,17 +1,14 @@
 import { default as React, useEffect, useState, Fragment } from 'react';
 import { default as classnames } from 'classnames';
-import { NavLink } from 'react-router-dom';
 
 import $ from 'jquery'; 
 
-import * as Routes from '../../../routes';
 import { useApi } from '../../../services/';
 import { useToast } from '../../services';
 
 import PostsTable from './PostsTable';
 
 import './PostList.scss';
-
 
 const PostList = ({children, className, limit = 10, skip = 1, onEdit}) => {  
   const { deletePost, findAllPosts } = useApi();
@@ -45,7 +42,7 @@ const PostList = ({children, className, limit = 10, skip = 1, onEdit}) => {
       fetchPosts();
     }
     
-  }, [currentPageIndex, postToDelete]);
+  }, [findAllPosts, currentPageIndex, postToDelete, pagination.limit]);
 
   const handlePage = (ev, pageIndex) => {
     ev.preventDefault();
@@ -55,19 +52,19 @@ const PostList = ({children, className, limit = 10, skip = 1, onEdit}) => {
 
   const handleDelete = (postId, mode) => {
     setPostToDelete({
-      post: posts.find(post => post.id == postId),
+      post: posts.find(post => post.id === postId),
       mode,
     });
     
     $('#confirmModal').modal('show');
   }
 
-  const handleDeleteConfirm = () => {
-    const deleted = deletePost(postToDelete.post.id, postToDelete.mode);
+  const handleDeleteConfirm = async () => {
+    const deletedPost = await deletePost(postToDelete.post.id, postToDelete.mode);
 
     addToast({
       title: `Admin: Post`,
-      message: `Succesfully deleted the post with id ${postToDelete.post.id} and title ${postToDelete.post.title}`
+      message: `Succesfully ${postToDelete.mode} the post with id ${deletedPost.id} and title ${deletedPost.title}`
     });
 
     $('#confirmModal').modal('hide');
@@ -95,13 +92,13 @@ const PostList = ({children, className, limit = 10, skip = 1, onEdit}) => {
         <div className="card-footer">
           <nav aria-label="Page navigation example">
             <ul className="pagination justify-content-end">
-              {(pagination.page > 1) ? (<li className="page-item"><a className="page-link" href="#" onClick={ev => handlePage(ev, pagination.page - 1)}>Previous</a></li>) : ''}
+              {(pagination.page > 1) ? (<li className="page-item"><button className="page-link" onClick={ev => handlePage(ev, pagination.page - 1)}>Previous</button></li>) : ''}
               {
                 Array(pagination.pages).fill(true).map((item, index) => (
-                  <li key={index} className={classnames('page-item', (pagination.page === index + 1) ? 'active' : '' )}><a className="page-link" href="#" onClick={ev => handlePage(ev, index + 1)}>{index + 1}</a></li>
+                  <li key={index} className={classnames('page-item', (pagination.page === index + 1) ? 'active' : '' )}><button className="page-link" onClick={ev => handlePage(ev, index + 1)}>{index + 1}</button></li>
                 ))
               }
-              {(pagination.page !== pagination.pages) ? (<li className="page-item"><a className="page-link" href="#" onClick={ev => handlePage(ev, pagination.page + 1)}>Next</a></li>) : ''}                
+              {(pagination.page !== pagination.pages) ? (<li className="page-item"><button className="page-link" onClick={ev => handlePage(ev, pagination.page + 1)}>Next</button></li>) : ''}                
             </ul>
           </nav>
         </div>

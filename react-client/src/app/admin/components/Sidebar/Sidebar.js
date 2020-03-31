@@ -21,13 +21,3 @@ const Sidebar = ({children}) => {
 };
 
 export default Sidebar;
-
-/*
-<Link className="sidebar-brand d-flex align-items-center justify-content-center" to={Routes.BACKOFFICE_LANDING}>
-        <div className="sidebar-brand-icon">
-          <i className="fas fa-laugh-wink"></i>
-        </div>
-        <div className="sidebar-brand-text mx-3">GDM Admin <sup>2</sup></div>
-      </Link>
-      <Navigation />
-      */

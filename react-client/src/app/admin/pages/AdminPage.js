@@ -23,4 +23,8 @@ const AdminPage = ({children}) => {
   );
 };
 
+AdminPage.prototypes = {
+  children: PropTypes.any
+};
+
 export default AdminPage;

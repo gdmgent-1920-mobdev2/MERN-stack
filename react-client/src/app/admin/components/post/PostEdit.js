@@ -7,7 +7,8 @@ const PostEdit = ({className, children, viewModel, onSave = null, onUpdate = nul
     txtTitle: '',
     txtSynopsis: '',
     txtBody: '',
-    ddlCategory: ''
+    ddlCategory: '',
+    txtImageUrl: ''
   });
 
   useEffect(() => {
@@ -16,7 +17,8 @@ const PostEdit = ({className, children, viewModel, onSave = null, onUpdate = nul
         txtTitle: viewModel.post.title,
         txtSynopsis: viewModel.post.synopsis,
         txtBody: viewModel.post.body,
-        ddlCategory: viewModel.post._categoryId
+        ddlCategory: viewModel.post._categoryId,
+        txtImageUrl: viewModel.post.imageUrl,
       });
     }
   }, [viewModel])
@@ -28,7 +30,8 @@ const PostEdit = ({className, children, viewModel, onSave = null, onUpdate = nul
       title: postForm.txtTitle,
       synopsis: postForm.txtSynopsis,
       body: postForm.txtBody,
-      _categoryId: postForm.ddlCategory
+      _categoryId: postForm.ddlCategory,
+      imageUrl: postForm.txtImageUrl
     };
 
     if (viewModel.post) {
@@ -82,6 +85,10 @@ const PostEdit = ({className, children, viewModel, onSave = null, onUpdate = nul
                   <option key={category._id} value={category._id}>{category.name}</option>
                 ))}
               </select>
+            </div>
+            <div className="form-group">
+              <label htmlFor="txtImageUrl">Image Url</label>
+              <input type="text" className="form-control" id="txtImageUrl" name="txtImageUrl" value={postForm['txtImageUrl']} onChange={handleInputChange}/>
             </div>
             <button type="submit" className="btn btn-primary">{!!viewModel && !!viewModel.post ? 'Update' : 'Save'} post</button>
           </form>          

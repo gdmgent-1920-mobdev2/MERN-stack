@@ -41,13 +41,13 @@ const PostList = ({children, amount, onReadMore, className, ...rest }) => {
       {posts && posts.map((post, index) => (
         <div className="col-12 col-sm-12 col-md-6 col-lg-4" key={index}>
           <article className="card" key={post._id}>
-            <picture class="card-img-top">
+            <picture className="card-img-top">
               <img src={post.imageUrl} alt={post.title} />
             </picture>
-            <div class="card-body">
-              <h5 class="card-title">{post.title}</h5>
-              <p class="card-text">{post.synopsis}</p>
-              <button href="#" class="btn btn-primary" onClick={ev => handleReadMore(ev, post._id)}>Lees meer</button>
+            <div className="card-body">
+              <h5 className="card-title">{post.title}</h5>
+              <p className="card-text">{post.synopsis}</p>
+              <button href="#" className="btn btn-primary" onClick={ev => handleReadMore(ev, post._id)}>Lees meer</button>
             </div>
           </article>
         </div>

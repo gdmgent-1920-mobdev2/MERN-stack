@@ -2,24 +2,30 @@ import React, { } from 'react';
 
 import './Toolbar.scss';
 
-const Toolbar = ({ children, toast }) => {
+const Toolbar = ({ children, className, toast }) => {
+
+  const handleHamburgerToggle = () => {
+    const bodyElement = document.querySelector('body');
+    if (bodyElement.classList.contains('is-minimized')) {
+      bodyElement.classList.remove('is-minimized');
+    } else {
+      bodyElement.classList.add('is-minimized');
+    }
+  };
 
   return (
-    <header className="toolbar">
-      <button className="navbar-toggler toolbar-toggler" data-toggle="collapse" data-target="#sidebar"responsive="true">
+    <header className={className}>
+      <button className="navbar-toggler toolbar-toggler" onClick={handleHamburgerToggle}>
         <span className="navbar-toggler-icon"></span>
       </button>
-      <ul className="toolbar-nav">
-        cxxcc
-      </ul>
-      <ul className="toolbar-nav">
-        cxxcc
-      </ul>
-      <ul className="toolbar-nav">
-        cxxcc
-      </ul>
       <div className="toolbar-sub">
-        sasa
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Library</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Data</li>
+          </ol>
+        </nav>
       </div>
     </header>
   )

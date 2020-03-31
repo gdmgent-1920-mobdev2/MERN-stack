@@ -6,16 +6,16 @@ import Navigation from './Navigation';
 
 import './Sidebar.scss';
 
-const Sidebar = ({children}) => {
+const Sidebar = ({children, className}) => {
   return (
-    <div className="sidebar" id="sidebar">
+    <div className={className} id="sidebar">
       <Link className="sidebar-brand d-flex align-items-center justify-content-center" to={Routes.BACKOFFICE_LANDING}>
         <div className="sidebar-brand-icon">
           <i className="fas fa-laugh-wink"></i>
         </div>
         <div className="sidebar-brand-text mx-3">GDM Admin <sup>2</sup></div>
       </Link>
-      <Navigation />
+      <Navigation className="sidebar-nav" />
     </div>
   );
 };

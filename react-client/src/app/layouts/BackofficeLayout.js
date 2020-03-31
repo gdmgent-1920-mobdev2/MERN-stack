@@ -10,10 +10,10 @@ const BackofficeLayout = ({ children }) => {
 
   return (
     <div className="backoffice">      
-      <Sidebar />
+      <Sidebar className="sidebar" />
       <ToastProvider>
         <main className="main">
-          <Toolbar />
+          <Toolbar className="toolbar"/>
           <div className="body">
             {children}
           </div>          

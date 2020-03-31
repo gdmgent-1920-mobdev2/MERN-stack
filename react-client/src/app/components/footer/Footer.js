@@ -94,11 +94,11 @@ const Footer = ({ children }) => {
             </section>
             <section className="meta__social">
               <h4 className="d-none">Social media links</h4>
-              <a className="footer__socialmedia-link" rel="noopener noreferrer" href="https://www.facebook.com/GrafischeendigitalemediaArteveldehogeschool/" title="Facebook pagina" target="_blank"><i class="fab fa-facebook-f"></i></a>
-              <a className="footer__socialmedia-link" rel="noopener noreferrer" href="https://www.instagram.com/madebygdm/" title="Instagram" target="_blank"><i class="fab fa-instagram"></i></a>
-              <a className="footer__socialmedia-link" rel="noopener noreferrer" href="https://twitter.com/arteveldegdm" title="Twitter" target="_blank"><i class="fab fa-twitter"></i></a>
-              <a className="footer__socialmedia-link" rel="noopener noreferrer" href="https://vimeo.com/bachelorgdm" title="Vimeo" target="_blank"><i class="fab fa-vimeo"></i></a>
-              <a className="footer__socialmedia-link" rel="noopener noreferrer" href="https://github.com/gdmgent" title="GitHub" target="_blank"><i class="fab fa-github"></i></a>
+              <a className="footer__socialmedia-link" rel="noopener noreferrer" href="https://www.facebook.com/GrafischeendigitalemediaArteveldehogeschool/" title="Facebook pagina" target="_blank"><i className="fab fa-facebook-f"></i></a>
+              <a className="footer__socialmedia-link" rel="noopener noreferrer" href="https://www.instagram.com/madebygdm/" title="Instagram" target="_blank"><i className="fab fa-instagram"></i></a>
+              <a className="footer__socialmedia-link" rel="noopener noreferrer" href="https://twitter.com/arteveldegdm" title="Twitter" target="_blank"><i className="fab fa-twitter"></i></a>
+              <a className="footer__socialmedia-link" rel="noopener noreferrer" href="https://vimeo.com/bachelorgdm" title="Vimeo" target="_blank"><i className="fab fa-vimeo"></i></a>
+              <a className="footer__socialmedia-link" rel="noopener noreferrer" href="https://github.com/gdmgent" title="GitHub" target="_blank"><i className="fab fa-github"></i></a>
             </section>        
           </div>
         </footer>

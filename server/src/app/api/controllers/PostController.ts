@@ -60,6 +60,7 @@ class PostController {
         synopsis: req.body.synopsis,
         body: req.body.body,
         _categoryId: req.body._categoryId,
+        imageUrl: req.body.imageUrl,
       });
       const post = await postCreate.save();
       return res.status(201).json(post);
@@ -97,6 +98,7 @@ class PostController {
         synopsis: req.body.synopsis,
         body: req.body.body,
         _categoryId: req.body._categoryId,
+        imageUrl: req.body.imageUrl,
       };
       const post = await Post.findOneAndUpdate({ _id: id }, postUpdate, {
         new: true,

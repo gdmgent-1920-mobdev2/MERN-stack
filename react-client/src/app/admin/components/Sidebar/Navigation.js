@@ -6,24 +6,28 @@ import * as Routes from '../../../routes';
 import './Sidebar.scss';
 
 
-const Navigation = ({children}) => {
+const Navigation = ({children, className}) => {
   return (
-    <nav className="navigation">
-      <ul className="">
-        <li className="nav-item">
-          <button className="nav-link collapsed" data-toggle="collapse" data-target="#collapsePosts" aria-expanded="false" aria-controls="collapseTwo">
-            <i className="fas fa-fw fa-cog"></i>
-            <span>Posts</span>
-          </button>
-          <div id="collapsePosts" className="collapse" aria-labelledby="headingTwo" data-parent="#sidebar">
-            <div className="bg-white py-2 collapse-inner rounded">
-              <NavLink className="collapse-item" activeClassName="active" to={Routes.BACKOFFICE_POSTS}>Overview Posts</NavLink>
-              <NavLink className="collapse-item" activeClassName="active" to={Routes.BACKOFFICE_POSTS_CREATE}>Create a new post</NavLink>
-            </div>
-          </div>
-        </li>
-      </ul>
-    </nav>
+    <ul className={className}>
+      <li className="sidebar-nav-item">        
+        <NavLink to={Routes.BACKOFFICE_DASHBOARD} activeClassName="active" className="sidebar-nav-link"><i className="fas fa-tachometer-alt"></i><span>Dasboard</span></NavLink>
+      </li>
+      <li className="sidebar-nav-item">        
+        <NavLink to={Routes.BACKOFFICE_POSTS} activeClassName="active" className="sidebar-nav-link"><i className="fas fa-blog"></i><span>Blogs</span></NavLink>
+      </li>
+      <li className="sidebar-nav-item">        
+        <NavLink to={Routes.BACKOFFICE_POSTS} activeClassName="active" className="sidebar-nav-link"><i className="fas fa-edit"></i><span>Posts</span></NavLink>
+      </li>
+      <li className="sidebar-nav-item">        
+        <NavLink to={Routes.BACKOFFICE_POSTS} activeClassName="active" className="sidebar-nav-link"><i className="fas fa-tags"></i><span>Categories</span></NavLink>
+      </li>      
+      <li className="sidebar-nav-item">        
+        <NavLink to={Routes.BACKOFFICE_POSTS} activeClassName="active" className="sidebar-nav-link"><i className="fas fa-comment-alt"></i><span>Messages</span></NavLink>
+      </li>
+      <li className="sidebar-nav-item">        
+        <NavLink to={Routes.BACKOFFICE_POSTS} activeClassName="active" className="sidebar-nav-link"><i className="fas fa-users"></i><span>Users</span></NavLink>
+      </li>
+    </ul>
   );
 };
 

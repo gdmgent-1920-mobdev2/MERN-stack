@@ -15,7 +15,7 @@ const Navigation = ({children}) => {
             <i className="fas fa-fw fa-cog"></i>
             <span>Posts</span>
           </a>
-          <div id="collapsePosts" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div id="collapsePosts" className="collapse" aria-labelledby="headingTwo" data-parent="#sidebar">
             <div className="bg-white py-2 collapse-inner rounded">
               <NavLink className="collapse-item" activeClassName="active" to={Routes.BACKOFFICE_POSTS}>Overview Posts</NavLink>
               <NavLink className="collapse-item" activeClassName="active" to={Routes.BACKOFFICE_POSTS_CREATE}>Create a new post</NavLink>

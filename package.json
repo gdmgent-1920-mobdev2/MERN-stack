@@ -1,0 +1,17 @@
+{
+  "name": "MERN-stack",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "http://github.com/gdmgent-1920-mobdev2/MERN-stack",
+  "author": "drdynscript <drdynscript@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^5.1.0"
+  },
+  "scripts": {
+    "watch": "concurrently \"cd server && yarn watch:serve\" \"cd react-client && yarn start\""
+  },
+  "dependencies": {
+    "react-select": "^3.1.0"
+  }
+}

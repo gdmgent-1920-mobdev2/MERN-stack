@@ -18,7 +18,7 @@ const PostList = ({children, amount, onReadMore, className, ...rest }) => {
 
       fetchPosts();
     },
-    [findAllPosts],
+    [findAllPosts, amount],
   )
 
   useEffect(() => {

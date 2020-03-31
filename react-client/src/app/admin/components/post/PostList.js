@@ -1,4 +1,4 @@
-import { default as React, useEffect, useState } from 'react';
+import { default as React, useEffect, useState, Fragment } from 'react';
 import { default as classnames } from 'classnames';
 import { NavLink } from 'react-router-dom';
 
@@ -13,7 +13,7 @@ import PostsTable from './PostsTable';
 import './PostList.scss';
 
 
-const PostList = ({children, className, limit = 10, skip = 1}) => {  
+const PostList = ({children, className, limit = 10, skip = 1, onEdit}) => {  
   const { deletePost, findAllPosts } = useApi();
   const { addToast } = useToast();
   const [ posts, setPosts ] = useState();
@@ -75,6 +75,12 @@ const PostList = ({children, className, limit = 10, skip = 1}) => {
     setPostToDelete(null);
   }
 
+  const handleEdit = (postId) => {
+    if (typeof onEdit === 'function') {
+      onEdit(postId);
+    }
+  }
+
   return (
     <div className={className}>
       <div className="card shadow mb-4">
@@ -83,7 +89,7 @@ const PostList = ({children, className, limit = 10, skip = 1}) => {
         </div>
         <div className="card-body">
           <div className="table-responsive">
-            <PostsTable posts={posts} onDelete={handleDelete}  />
+            <PostsTable posts={posts} onDelete={handleDelete} onEdit={handleEdit}  />
           </div>          
         </div>
         <div className="card-footer">
@@ -104,17 +110,23 @@ const PostList = ({children, className, limit = 10, skip = 1}) => {
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>
+              <h5 className="modal-title" id="exampleModalLabel">{!!postToDelete ? (
+                <Fragment>{postToDelete.mode} the selected post</Fragment>
+              ) : ''}</h5>
               <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div className="modal-body">
-              ...
+              {!!postToDelete ? (
+                <p>Dou yo wish to {postToDelete.mode} the post with id: {postToDelete.post.id} and title: {postToDelete.post.title}?</p>
+              ) : ''}
             </div>
             <div className="modal-footer">
               <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" className="btn btn-primary" onClick={ev => handleDeleteConfirm(ev)}>Delete</button>
+              <button type="button" className="btn btn-primary" onClick={ev => handleDeleteConfirm(ev)}>{!!postToDelete ? (
+                <Fragment>{postToDelete.mode}</Fragment>
+              ) : ''}</button>
             </div>
           </div>
         </div>

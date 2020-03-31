@@ -5,11 +5,17 @@ import { NavLink } from 'react-router-dom';
 
 import * as Routes from '../../../routes';
 
-const PostsTable = ({children, posts, onDelete}) => {
+const PostsTable = ({children, posts, onDelete, onEdit}) => {
 
   const handleDelete = (event, postId, deleteMode = 0) => {
     if (typeof onDelete === 'function') {
       onDelete(postId, deleteMode);
+    }
+  };
+
+  const handleEdit = (event, postId) => {
+    if (typeof onEdit === 'function') {
+      onEdit(postId);
     }
   };
 
@@ -38,8 +44,9 @@ const PostsTable = ({children, posts, onDelete}) => {
               {moment(posts._createdAt).format('DD/MM/YYYY')}
             </td>
             <td className="d-flex justify-content-around">
+              <a aria-label="edit" href="#" onClick={ev => handleEdit(ev, post.id)}><i className="fas fa-edit"></i></a>
               <a className={classnames(post._deletedAt === null ? 'soft-deleted' : 'soft-undeleted')} aria-label="delete" href="#" onClick={ev => handleDelete(ev, post.id, post._deletedAt === null ? 'softdelete' : 'softundelete', 'delete')}><i className="fas fa-trash-alt"></i></a>
-              <a aria-label="delete-forever" href="#" onClick={ev => handleDelete(ev, post.id, 'delete')}><i className="fas fa-trash"></i></a>
+              <a aria-label="delete-forever" href="#" onClick={ev => handleDelete(ev, post.id, 'delete')}><i className="fas fa-trash"></i></a>              
             </td>
           </tr>
         ))}

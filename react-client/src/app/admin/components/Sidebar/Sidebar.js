@@ -8,17 +8,26 @@ import './Sidebar.scss';
 
 const Sidebar = ({children}) => {
   return (
-    <div className="navbar-nav sidebar accordion" id="accordionSidebar">
+    <div className="sidebar" id="sidebar">
       <Link className="sidebar-brand d-flex align-items-center justify-content-center" to={Routes.BACKOFFICE_LANDING}>
-        <div className="sidebar-brand-icon rotate-n-15">
+        <div className="sidebar-brand-icon">
           <i className="fas fa-laugh-wink"></i>
         </div>
         <div className="sidebar-brand-text mx-3">GDM Admin <sup>2</sup></div>
       </Link>
-      <hr className="sidebar-divider" />
       <Navigation />
     </div>
   );
 };
 
 export default Sidebar;
+
+/*
+<Link className="sidebar-brand d-flex align-items-center justify-content-center" to={Routes.BACKOFFICE_LANDING}>
+        <div className="sidebar-brand-icon">
+          <i className="fas fa-laugh-wink"></i>
+        </div>
+        <div className="sidebar-brand-text mx-3">GDM Admin <sup>2</sup></div>
+      </Link>
+      <Navigation />
+      */

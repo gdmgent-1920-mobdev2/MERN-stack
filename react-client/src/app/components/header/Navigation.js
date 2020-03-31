@@ -3,11 +3,13 @@ import { Link, NavLink } from 'react-router-dom';
 
 import * as Routes from '../../routes';
 
+import Logo from '../../_static/images/logo192.png';
+
 const Navigation = ({children}) => {
   return (
     <nav className="navbar navbar-expand-lg  navbar-light bg-light">
       <Link className="navbar-brand" to={Routes.LANDING}>
-        <img src="static/images/logo192.png" width="30" height="30" className="d-inline-block align-top" alt="" />
+        <img src={Logo} width="30" height="30" className="d-inline-block align-top" alt="" />
         Grafische en Digitale Media
       </Link>
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">

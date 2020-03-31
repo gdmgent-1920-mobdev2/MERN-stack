@@ -1,4 +1,4 @@
-import { default as React, useCallback, useEffect, useState, Fragment } from 'react';
+import { default as React, useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { useApi } from '../services';
 
@@ -31,7 +31,7 @@ const PostDetailPage = ({children}) => {
   }, [initFetch, id]);
 
   return (
-    <div className="">
+    <div className="">      
       <PostDetail post={post} />
     </div>
   );

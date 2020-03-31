@@ -23,7 +23,7 @@ const ApiProvider = ({children}) => {
     return response.json();
   }
 
-  const createPost = async (post) => {
+  const createPostViewModel = async (post) => {
     let url = `${BASE_URL}/posts/create`;
     const response = await fetch(url);
     return response.json();
@@ -36,14 +36,15 @@ const ApiProvider = ({children}) => {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
+      body: JSON.stringify(post)
     };
 
-    let url = `${BASE_URL}/posts/create`;
+    let url = `${BASE_URL}/posts`;
     const response = await fetch(url, options);
     return response.json();
   }
 
-  const editPost = async (post) => {
+  const editPostViewModel = async (postId) => {
     const options = {
       method: "get",
       headers: {
@@ -52,7 +53,7 @@ const ApiProvider = ({children}) => {
       },
     };
 
-    let url = `${BASE_URL}/posts/${post._id}/edit`;
+    let url = `${BASE_URL}/posts/${postId}/edit`;
     const response = await fetch(url, options);
     return response.json();
   }
@@ -89,7 +90,7 @@ const ApiProvider = ({children}) => {
   }
 
   return (
-    <ApiContext.Provider value={{ deletePost, findAllPosts, findPost }}>
+    <ApiContext.Provider value={{ createPostViewModel, deletePost, findAllPosts, findPost, storePost, editPostViewModel, updatePost }}>
       {children}
     </ApiContext.Provider>
   );

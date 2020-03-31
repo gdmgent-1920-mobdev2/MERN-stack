@@ -1,11 +1,37 @@
-import React, { Fragment, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+
+import * as Routes from '../../routes';
 import { PostEdit } from '../components';
+import { useApi } from '../../services';
+
 
 const PostCreatePage = ({ children }) => {
+  const { createPostViewModel, storePost } = useApi();
+  const [ postViewModel, setPostViewModel ] = useState(null);
 
+  let history = useHistory();
+
+  useEffect(() => {
+    const fetchPostViewModel = async () => {        
+      const data = await createPostViewModel();
+      setPostViewModel(data);
+    }
+
+    fetchPostViewModel();    
+  }, [createPostViewModel]);
+
+  const handleOnSave = async (post) => {
+    console.log(post);
+    const storedPost = await storePost(post);
+    history.push(Routes.BACKOFFICE_POSTS);
+  }
+  
   return (
-    <div>
-      <PostEdit />
+    <div className="container">
+      <div className="row">
+        <PostEdit className="col-12 col-sm-12 col-md-12 col-lg-12 ol-xl-6 post-edit" viewModel={postViewModel} onSave={handleOnSave} />
+      </div>
     </div>
   )
 };

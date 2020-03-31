@@ -6,6 +6,11 @@
     flex-wrap: nowrap;
 
     & .main {
+        margin-left: 292px;
         width: 100%;
+
+        & .body {
+            padding: 136px 0 32px;
+        }
     }
 }

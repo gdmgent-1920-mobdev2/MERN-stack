@@ -31,13 +31,13 @@ const PostEdit = ({className, children, viewModel, onSave = null, onUpdate = nul
       _categoryId: postForm.ddlCategory
     };
 
-    if (viewModel.post === null) {
-      onSave(post);
-    } else {
+    if (viewModel.post) {
       onUpdate({
         ...post,
         _id: viewModel.post._id
-      })
+      });      
+    } else {
+      onSave(post);
     }
   }
 

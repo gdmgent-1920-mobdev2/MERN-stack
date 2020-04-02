@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
 import { IPost, Post, Category } from '../../models/mongoose';
+
 import { NotFoundError } from '../../utilities';
 
-class PostController {
+class PostController { 
   index = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { limit, skip } = req.query;

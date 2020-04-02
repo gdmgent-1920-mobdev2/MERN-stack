@@ -5,6 +5,7 @@ import {
   Response,
   Router,
 } from 'express';
+import { IConfig, AuthService, Role } from '../../services';
 import {
   BlogController,
   HelloController,
@@ -21,7 +22,13 @@ class ApiRouter {
   private postController: PostController;
   private userController: UserController;
 
-  constructor() {
+  private config: IConfig;
+  private authService: AuthService;
+
+  constructor(config: IConfig, authService: AuthService) {
+    this.config = config;
+    this.authService = authService;
+
     this.router = express.Router();
 
     this.registerControllers();
@@ -33,7 +40,7 @@ class ApiRouter {
     this.helloController = new HelloController();
     this.messageController = new MessageController();
     this.postController = new PostController();
-    this.userController = new UserController();
+    this.userController = new UserController(this.config, this.authService);
   }
 
   private registerRoutes(): void {
@@ -66,6 +73,9 @@ class ApiRouter {
      */
     this.router.get('/users', this.userController.index);
     this.router.get('/users/:id', this.userController.show);
+    this.router.delete('/users/:id', this.userController.destroy);
+    this.router.post('/auth/signin/', this.userController.signInLocal);
+    this.router.post('/auth/signup/', this.userController.signupLocal);
   }
 }
 

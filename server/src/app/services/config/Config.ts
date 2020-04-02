@@ -1,10 +1,13 @@
 import { default as dotenv } from 'dotenv';
 
 import {
-  IConfig,
   Environment,
+  IConfig,
   IServerConfig,
   ServerProtocol,
+  IAuthConfig,
+  IFacebookConfig,
+  IJwtConfig,
 } from './config.types';
 
 class Config implements IConfig {
@@ -12,6 +15,7 @@ class Config implements IConfig {
   public env: Environment;
   public server: IServerConfig;
   public mongoDBConnection: string;
+  public auth: IAuthConfig;
 
   constructor() {
     dotenv.config();
@@ -35,6 +39,17 @@ class Config implements IConfig {
         ],
     } as IServerConfig;
     this.mongoDBConnection = process.env.MONGODB_CONNECTION;
+    this.auth = {
+      bcryptSalt: Number(process.env.AUTH_BCRYPT_SALT || 10),
+      jwt: {
+        secret: (process.env.AUTH_JWT_SECRET || 'gdm_nmd_mobdev2'),
+        session: Boolean(process.env.AUTH_JWT_SESSION || true),
+      },
+      facebook: {
+        clientId: process.env.AUTH_FACEBOOK_CLIENT_ID,
+        clientSecret: process.env.AUTH_FACEBOOK_CLIENT_SECRET,
+      }
+    }
   }
 }
 

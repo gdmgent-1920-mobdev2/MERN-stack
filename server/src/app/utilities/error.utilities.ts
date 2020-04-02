@@ -33,4 +33,4 @@ class UnauthorizedError extends AppError {
   public status: number = 401;
 }
 
-export { AppError, InternalServerError, NotFoundError };
+export { AppError, ForbiddenError, InternalServerError, NotFoundError, UnauthorizedError };

@@ -31,6 +31,8 @@ interface IUser extends Document {
   profile?: IProfile;
 
   _messageIds?: Array<IMessage['_id']>;
+
+  comparePassword(candidatePassword: String, cb: Function): void;
 }
 
 const userSchema: Schema = new Schema(
@@ -110,6 +112,14 @@ userSchema.virtual('messages', {
   foreignField: '_id',
   justOne: false,
 });
+
+userSchema.methods.comparePassword = function (candidatePassword: String, cb: Function) {
+  const user = this;
+  bcrypt.compare(candidatePassword, user.password, (err, isMatch) => {
+    if (err) return cb(err, null);
+    return cb(null, isMatch);
+  });
+};
 
 const User = mongoose.model<IUser>('User', userSchema);
 

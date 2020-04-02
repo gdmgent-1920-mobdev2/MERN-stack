@@ -42,14 +42,14 @@ class Config implements IConfig {
     this.auth = {
       bcryptSalt: Number(process.env.AUTH_BCRYPT_SALT || 10),
       jwt: {
-        secret: (process.env.AUTH_JWT_SECRET || 'gdm_nmd_mobdev2'),
+        secret: process.env.AUTH_JWT_SECRET || 'gdm_nmd_mobdev2',
         session: Boolean(process.env.AUTH_JWT_SESSION || true),
       },
       facebook: {
         clientId: process.env.AUTH_FACEBOOK_CLIENT_ID,
         clientSecret: process.env.AUTH_FACEBOOK_CLIENT_SECRET,
-      }
-    }
+      },
+    };
   }
 }
 

@@ -7,13 +7,17 @@ import { NotFoundError } from '../../utilities';
 class UserController {
   private authService: AuthService;
   private config: IConfig;
-  
+
   constructor(config: IConfig, authService: AuthService) {
     this.config = config;
     this.authService = authService;
   }
 
-  public index = async (req: Request, res: Response, next: NextFunction): Promise<Response<any>> => {
+  public index = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<Response<any>> => {
     try {
       const { limit, skip } = req.query;
       let users = null;
@@ -25,7 +29,9 @@ class UserController {
         };
         users = await User.paginate({}, options);
       } else {
-        users = await User.find().sort({ created_at: -1 }).exec();
+        users = await User.find()
+          .sort({ created_at: -1 })
+          .exec();
       }
 
       return res.status(200).json(users);
@@ -38,8 +44,7 @@ class UserController {
     try {
       const { id } = req.params;
 
-      const post = await User.findById(id)
-        .exec();
+      const post = await User.findById(id).exec();
       return res.status(200).json(post);
     } catch (err) {
       next(err);
@@ -87,16 +92,20 @@ class UserController {
     }
   };
 
-  signupLocal = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
+  signupLocal = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<Response | void> => {
     const { email, password } = req.body;
 
-    let foundUser = await User.findOne({ "email": email });
+    let foundUser = await User.findOne({ email: email });
     if (foundUser) {
       return res.status(403).json({ error: 'Email is already in use' });
     }
 
     const newUser: IUser = new User({
-      'email': email,
+      email: email,
     });
 
     const user: IUser = await newUser.save();
@@ -107,26 +116,36 @@ class UserController {
       token: `${token}`,
       strategy: 'local',
       role: user.role,
-      avatar: user.profile.avatar
+      avatar: user.profile.avatar,
     });
   };
 
-  signInLocal = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  signInLocal = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> => {
     console.log(req.body);
-    this.authService.passport.authenticate('local', { session: this.config.auth.jwt.session }, (err, user, info) => {
-      if (err) { return next(err); }
-      if (!user) {
-        return next(new NotFoundError());
-      }
-      const token = this.authService.createToken(user);
-      return res.status(200).json({
-        email: user.email,
-        token: `${token}`,
-        strategy: 'local',
-        role: user.role,
-        avatar: user.profile.avatar
-      });
-    })(req, res, next);
+    this.authService.passport.authenticate(
+      'local',
+      { session: this.config.auth.jwt.session },
+      (err, user, info) => {
+        if (err) {
+          return next(err);
+        }
+        if (!user) {
+          return next(new NotFoundError());
+        }
+        const token = this.authService.createToken(user);
+        return res.status(200).json({
+          email: user.email,
+          token: `${token}`,
+          strategy: 'local',
+          role: user.role,
+          avatar: user.profile.avatar,
+        });
+      },
+    )(req, res, next);
   };
 }
 

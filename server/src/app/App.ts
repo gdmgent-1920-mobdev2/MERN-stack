@@ -84,11 +84,11 @@ class App {
         {},
       );
     });
-  };
+  }
 
   private createPassport(): void {
     this.authService = new AuthService(this.config);
-  };
+  }
 
   private createRouter(): void {
     this.router = new Router(this.app, this.config, this.authService);

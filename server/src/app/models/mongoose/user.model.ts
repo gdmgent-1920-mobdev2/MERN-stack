@@ -113,7 +113,10 @@ userSchema.virtual('messages', {
   justOne: false,
 });
 
-userSchema.methods.comparePassword = function (candidatePassword: String, cb: Function) {
+userSchema.methods.comparePassword = function(
+  candidatePassword: String,
+  cb: Function,
+) {
   const user = this;
   bcrypt.compare(candidatePassword, user.password, (err, isMatch) => {
     if (err) return cb(err, null);

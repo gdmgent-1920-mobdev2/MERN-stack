@@ -3,3 +3,16 @@
 .page-header {
     margin-bottom: $grid-gutter-width;
 }
+
+.auth-toggle {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+    & > img {
+        height: 32px;
+        width: 32px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+}

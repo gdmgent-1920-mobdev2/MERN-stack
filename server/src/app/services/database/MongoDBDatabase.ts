@@ -240,7 +240,7 @@ class MongoDBDatabase {
     return await Promise.all(promises);
   };
 
-  private getRandomPostsAsArrayOfIds(nPosts) {
+  private getRandomPostsAsArrayOfIds(nPosts: number) {
     const tempPosts = JSON.parse(JSON.stringify(this.posts)) as Array<IPost>;
     const arrayOfIds = [];
     while (arrayOfIds.length < nPosts) {

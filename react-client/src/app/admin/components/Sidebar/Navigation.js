@@ -5,7 +5,6 @@ import * as Routes from '../../../routes';
 
 import './Sidebar.scss';
 
-
 const Navigation = ({children, className}) => {
   return (
     <ul className={className}>

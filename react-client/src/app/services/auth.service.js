@@ -18,6 +18,7 @@ const AuthProvider = ({ children }) => {
         if (!decoded) {
           throw new Error('Couldn\'t decode the token!');
         }
+
         if (decoded.exp > Date.now()) {
           throw new Error('Token is expired!')
         }
@@ -32,7 +33,7 @@ const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(verifyUserFromLocalStorage);
 
   const signInLocal = async (email, password) => {
-    let url = `${apiConfig.baseURL}/auth/signin`;
+    const url = `${apiConfig.baseURL}/auth/signin`;
 
     const body = {
       email,

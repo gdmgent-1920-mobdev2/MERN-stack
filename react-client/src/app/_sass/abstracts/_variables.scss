@@ -18,7 +18,7 @@ $theme-colors: (
   "ahs-purple": $color-purple
 );
 
-$font-family-base: 'Roboto', sans-serif;
+$font-family-base: $font-family-Roboto;
 
 $grid-columns: 12 !default;
 $grid-gutter-width: 48px !default;

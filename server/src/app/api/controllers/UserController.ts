@@ -125,7 +125,6 @@ class UserController {
     res: Response,
     next: NextFunction,
   ): Promise<void> => {
-    console.log(req.body);
     this.authService.passport.authenticate(
       'local',
       { session: this.config.auth.jwt.session },

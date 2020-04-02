@@ -11,7 +11,7 @@ const ToastProvider = ({children}) => {
 
   useEffect(() => {
     $('.toast').toast('show');
-  }, [toasts])
+  }, [toasts]);
 
   const addToast = ({ title, message }) => {
     const tempToasts = JSON.parse(JSON.stringify(toasts));

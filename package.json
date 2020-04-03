@@ -12,12 +12,13 @@
     "rimraf": "^3.0.2"
   },
   "scripts": {
-    "build:clean": "rimraf ./dist/*",
-    "build": "yarn build:clean && yarn react-client:build && yarn server:build",
+    "build:clean": "rimraf ./dist/* && yarn cpy:package && yarn react-client:build && yarn server:build",
+    "build:update": "rimraf ./dist/app && rimraf ./dist/client && rimraf ./dist/index.js && rimraf ./dist/index.js.map && yarn react-client:build && yarn server:build",
     "install": "concurrently \"cd server && yarn install\" \"cd react-client && yarn install\"",
     "react-client:build": "cd react-client && yarn build && cpy **/*.* --cwd=build ../../dist/client --parents",
-    "server:build": "cd server && yarn build && cpy **/*.* --cwd=dist ../../dist --parents && cpy ./package.production.json ../../dist/ --parents",
+    "server:build": "cd server && yarn build && cpy **/*.* --cwd=dist ../../dist --parents && cpy **/package.production.json ../../dist",
     "serve:build": "cross-env NODE_ENV=Production NODE_SERVER_PORT=8082 node ./dist/index.js",
-    "watch": "concurrently \"cd server && yarn watch:serve\" \"cd react-client && yarn start\""
+    "watch": "concurrently \"cd server && yarn watch:serve\" \"cd react-client && yarn start\"",
+    "cpy:package": "cpy package.production.json dist --filename=package.json"
   }
 }

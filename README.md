@@ -25,9 +25,9 @@ Template consists of:
 
 https://cloud.mongodb.com/
 
-### Environment settings
+### Server
 
-Create a `.env`-file under the root of the project with the following contents:
+Create a `.env`-file under the root of the server with the following contents:
 
 ```
 NMD_BASELINE='Like Graphics Love Code' 
@@ -44,7 +44,9 @@ AUTH_FACEBOOK_CLIENT_ID={your Facebook Client id}
 AUTH_FACEBOOK_CLIENT_SECRET={your Facebook Client secret} 
 ```
 
-Create a `.env`-file under the `client` folder following contents:
+### React Client
+
+Create a `.env`-file under the `react-client` folder following contents:
 
 ```
 REACT_APP_API_URL=/api
@@ -52,7 +54,7 @@ REACT_APP_API_URL=/api
 
 ### Installing
 
-Under the root execute:
+Under the root of the project execute:
 
 ```
 yarn install
@@ -60,72 +62,42 @@ yarn install
 
 ### Scripts
 
-#### Running the Express-server in development
+#### Running the Express-server and React-client in development side-by-side
 
 Under the root execute:
 
 ```
-yarn server:start
+yarn watch:all
 ```
 
-#### Running the React-client in development
+#### Running the Express-server with integrated React-client in development
+
+Under the root execute:
+
+First build the React-client (you have to do this after changes in de react-client code)
+
+```
+yarn build:react-client
+```
+
+Start the Express-server in development
+
+```
+yarn watch
+```
+
+#### Build the complete project
 
 Under the root execute:
 
 ```
-yarn client:start
+yarn build:clean
 ```
 
-#### Running the Express-server and React-client in development
-
-Under the root execute:
+Serve the compiled project:
 
 ```
-yarn start:all
-```
-
-The React-client must be build in order to visit the default route: `http://{your domain}:{your port}/`. Run `yarn client:build` to create a `build` folder under the root of the `client` folder.
-
-#### Running the tests for Express-server
-
-Under the root execute:
-
-```
-yarn server:test
-```
-
-#### Check eslint for the server
-
-Under the root execute:
-
-```
-yarn server:lint
-```
-
-#### Running the React-app
-
-Under the root execute:
-
-```
-yarn client:start
-```
-
-#### Building the React-app
-
-Under the root execute:
-
-```
-yarn client:build
-```
-
-This command creates a directory `build` under the client folder. Afster building, the `build` folder will be copied to the `dist\client` folder (under the root of the project).
-
-#### Running the tests for React-client
-
-Under the root execute:
-
-```
-yarn client:test
+yarn serve:build
 ```
 
 ## API Specification
@@ -141,8 +113,8 @@ yarn client:test
 
 - Public
   - Home: http://{your domain}:{your port]
-  - News: http://{your domain}:{your port]/news
-  - Post Detail: http://{your domain}:{your port]/news/{post id}
+  - News: http://{your domain}:{your port]/posts
+  - Post Detail: http://{your domain}:{your port]/posts/{post id}
 - Admin
   - Home: http://{your domain}:{your port]/admin
   - Blog List: http://{your domain}:{your port]/admin/blogs

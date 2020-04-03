@@ -13,12 +13,12 @@
   },
   "scripts": {
     "build:all": "rimraf ./dist/* && yarn build:react-client && yarn build:server && yarn cpy:settings",
-    "build:react-client": "cd react-client && yarn build && cpy \"**/*\" --cwd=build ../../dist/client --parents",
-    "build:server": "cd server && yarn build && cpy \"**/*\" --cwd=dist ../../dist --parents",
+    "build:react-client": "cd react-client && yarn build && cpy \"**/*.*\" --cwd=build ../../dist/client --parents",
+    "build:server": "cd server && yarn build && cpy \"**/*.*\" --cwd=dist ../../dist --parents",
     "dep:install": "cd server && yarn install && cd ../react-client && yarn install",    
     "serve:build": "cd dist && node index.js",
     "watch:all": "concurrently \"cd server && yarn watch:serve\" \"cd react-client && yarn start\"",
     "watch": "cd server && yarn watch:serve",
-    "cpy:settings": "cpy \"**/*\" --cwd=settings ../dist"
+    "cpy:settings": "cpy \"**/*.*\" --cwd=settings ../dist"
   }
 }

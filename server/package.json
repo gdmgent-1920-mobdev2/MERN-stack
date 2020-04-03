@@ -64,7 +64,7 @@
     "typescript": "^3.8.3"
   },
   "scripts": {
-    "build": "tsc --build tsconfig.json && cpy **/*.* --cwd=src/app/views ../../../dist/app/views --parents && cpy **/*.* --cwd=src/app/static ../../../dist/app/static --parents",
+    "build": "tsc --build tsconfig.json && cpy '**/*.*' --cwd=src/app/views ../../../dist/app/views --parents && cpy '**/*.*' --cwd=src/app/static ../../../dist/app/static --parents",
     "lint": "tslint --project tsconfig.json",
     "prettier:base": "prettier --parser typescript --single-quote",
     "prettier:check": "yarn prettier:base --list-different \"src/**/*.{ts,tsx}\"",

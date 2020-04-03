@@ -27,4 +27,4 @@ jobs:
       
     - name: yarn build
       run: |
-        yarn build:clean --if-present
+        yarn build:all:ghactions --if-present

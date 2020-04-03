@@ -12,13 +12,16 @@
     "rimraf": "^3.0.2"
   },
   "scripts": {
-    "build:clean": "rimraf ./dist/* && yarn build:react-client && yarn build:server",
-    "build:react-client": "cd react-client && yarn build && cpy **/*.* --cwd=build ../../dist/client --parents",
-    "build:server": "cd server && yarn build && cpy **/*.* --cwd=dist ../../dist --parents",
+    "build:all:ghactions": "yarn build:react-client:local && yarn build:server:ghactions && yarn cpy:settings:ghactions",
+    "build:react-client:ghactions": "cd react-client && yarn build",
+    "build:server:ghactions": "cd server && yarn build",
+    "build:all:local": "rimraf ./dist/* && yarn build:react-client:local && yarn build:server:local && yarn cpy:settings:local",
+    "build:react-client:local": "cd react-client && yarn build && cpy **/*.* --cwd=build ../../dist/client --parents",
+    "build:server:local": "cd server && yarn build && cpy **/*.* --cwd=dist ../../dist --parents",
     "install": "cd server && yarn install && cd ../react-client && yarn install",    
     "serve:build": "cd dist && node index.js",
     "watch:all": "concurrently \"cd server && yarn watch:serve\" \"cd react-client && yarn start\"",
     "watch": "cd server && yarn watch:serve",
-    "cpy:settings": "cpy **/*.* --cwd=settings ../dist"
+    "cpy:settings:local": "cpy **/*.* --cwd=settings ../dist"
   }
 }

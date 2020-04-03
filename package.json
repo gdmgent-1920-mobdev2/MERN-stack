@@ -12,8 +12,7 @@
     "rimraf": "^3.0.2"
   },
   "scripts": {
-    "build:clean": "rimraf ./dist/* && yarn cpy:settings && yarn build:react-client && yarn build:server && cd dist && yarn install",
-    "build:update": "rimraf ./dist/app && rimraf ./dist/client && rimraf ./dist/index.js && rimraf ./dist/index.js.map && yarn build:react-client && yarn build:server",
+    "build:clean": "rimraf ./dist/* && yarn cpy:settings && yarn build:react-client && yarn build:server",
     "build:react-client": "cd react-client && yarn build && cpy **/*.* --cwd=build ../../dist/client --parents",
     "build:server": "cd server && yarn build && cpy **/*.* --cwd=dist ../../dist --parents && cpy **/package.production.json ../../dist",
     "install": "cd server && yarn install && cd ../react-client && yarn install",    

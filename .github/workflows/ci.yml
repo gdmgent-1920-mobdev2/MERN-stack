@@ -27,7 +27,7 @@ jobs:
       
     - name: yarn build
       run: |
-        yarn build:all --if-present
+        yarn dep:install --if-present
 
     - name: change directory to dist
       run: |

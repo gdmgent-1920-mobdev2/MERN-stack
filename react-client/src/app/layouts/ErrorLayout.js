@@ -5,9 +5,11 @@ import './ErrorLayout.scss';
 const ErrorLayout = ({ children }) => {
 
   return (
-    <div>
-      {children}
-    </div>
+    <div class="page--404">
+      <main class="main">
+        {children}
+      </main>
+    </div>    
   )
 };
 export default ErrorLayout;

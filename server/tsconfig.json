@@ -25,7 +25,7 @@
     },
     "compileOnSave": true,
     "include": [
-        "src/**/*.ts"
+        "src/**/*.ts",
     ],
     "exclude": [
         "**/coverage/**",

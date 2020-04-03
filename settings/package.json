@@ -2,7 +2,7 @@
   "name": "new_media_development_men_boilerplate",
   "version": "1.0.0",
   "description": "MEN Boilerplate with TypeScript",
-  "main": "dist/index.js",
+  "main": "index.js",
   "repository": "https://github.com/gdmgent-1920-mobdev2/MERN-stack",
   "author": "drdynscript",
   "license": "MIT",

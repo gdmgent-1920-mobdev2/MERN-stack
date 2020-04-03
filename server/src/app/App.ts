@@ -34,7 +34,7 @@ class App {
 
   private createExpress(): void {
     this.app = express();
-    GlobalMiddleware.load(this.app, __dirname);
+    GlobalMiddleware.load(this.app, __dirname, this.config);
     if (this.config.env === Environment.development) {
       MorganMiddleware.load(this.app);
     }
@@ -63,11 +63,7 @@ class App {
     res: Response,
     next: NextFunction,
   ): void {
-    if (error.status === 404) {
-      res.status(404).render('pages/404');
-    } else {
-      res.status(error.status).render('pages/404');
-    }
+      res.status((error.status) ? error.status : 500).render('pages/404');
   }
 
   private createServer(): void {
@@ -91,7 +87,7 @@ class App {
   }
 
   private createRouter(): void {
-    this.router = new Router(this.app, this.config, this.authService);
+    this.router = new Router(this.app, __dirname, this.config, this.authService);
   }
 
   public start(): void {

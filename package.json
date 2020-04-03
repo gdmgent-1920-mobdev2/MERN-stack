@@ -1,5 +1,5 @@
 {
-  "name": "MERN-stack",
+  "name": "mern-stack",
   "version": "1.0.0",
   "main": "index.js",
   "repository": "http://github.com/gdmgent-1920-mobdev2/MERN-stack",
@@ -15,7 +15,7 @@
     "build:all": "rimraf ./dist/* && yarn build:react-client && yarn build:server && yarn cpy:settings",
     "build:react-client": "cd react-client && yarn build && cpy '**/*.*' --cwd=build ../../dist/client --parents",
     "build:server": "cd server && yarn build && cpy '**/*.*' --cwd=dist ../../dist --parents",
-    "install": "cd server && yarn install && cd ../react-client && yarn install",    
+    "dep:install": "cd server && yarn install && cd ../react-client && yarn install",    
     "serve:build": "cd dist && node index.js",
     "watch:all": "concurrently \"cd server && yarn watch:serve\" \"cd react-client && yarn start\"",
     "watch": "cd server && yarn watch:serve",

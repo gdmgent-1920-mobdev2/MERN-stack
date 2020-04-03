@@ -63,7 +63,7 @@ class App {
     res: Response,
     next: NextFunction,
   ): void {
-      res.status((error.status) ? error.status : 500).render('pages/404');
+    res.status(error.status ? error.status : 500).render('pages/404');
   }
 
   private createServer(): void {
@@ -87,7 +87,12 @@ class App {
   }
 
   private createRouter(): void {
-    this.router = new Router(this.app, __dirname, this.config, this.authService);
+    this.router = new Router(
+      this.app,
+      __dirname,
+      this.config,
+      this.authService,
+    );
   }
 
   public start(): void {

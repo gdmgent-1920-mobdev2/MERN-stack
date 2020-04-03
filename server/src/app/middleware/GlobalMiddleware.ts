@@ -20,7 +20,9 @@ class GlobalMiddleware {
     if (config.env === Environment.production) {
       app.use(express.static(path.join(rootPath, '../client')));
     } else {
-      app.use(express.static(path.join(rootPath, '/../../../react-client/build')));
+      app.use(
+        express.static(path.join(rootPath, '/../../../react-client/build')),
+      );
     }
 
     // Helmet helps you secure your Express apps by setting various HTTP headers. It’s not a silver bullet, but it can help!

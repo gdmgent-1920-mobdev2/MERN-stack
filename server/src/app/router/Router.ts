@@ -13,7 +13,12 @@ export default class Router {
   private homeController: HomeController;
   private fallbackController: FallbackController;
 
-  constructor(app: Application, rootPath: string, config: IConfig, authService: AuthService) {
+  constructor(
+    app: Application,
+    rootPath: string,
+    config: IConfig,
+    authService: AuthService,
+  ) {
     this.app = app;
     this.config = config;
     this.authService = authService;
@@ -36,8 +41,10 @@ export default class Router {
       if (this.config.env === Environment.production) {
         res.sendFile(path.join(rootPath, '../client/index.html'));
       } else {
-        res.sendFile(path.join(rootPath, '/../../../react-client/build/index.html'));
+        res.sendFile(
+          path.join(rootPath, '/../../../react-client/build/index.html'),
+        );
       }
-    });    
+    });
   }
 }

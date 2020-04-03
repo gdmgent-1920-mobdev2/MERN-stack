@@ -20,7 +20,6 @@
     "serve:build": "cd dist && node index.js",
     "watch:all": "concurrently \"cd server && yarn watch:serve\" \"cd react-client && yarn start\"",
     "watch": "cd server && yarn watch:serve",
-    "cpy:settings": "cpy **/* --cwd=settings ../dist",
-    "deploy:heroku": "cd dist && git init && git add . && git commit -m \"Added a new distribution\" && git push heroku master"
+    "cpy:settings": "cpy **/* --cwd=settings ../dist"
   }
 }

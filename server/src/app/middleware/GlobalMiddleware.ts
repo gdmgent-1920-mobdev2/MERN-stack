@@ -10,19 +10,20 @@ import { IConfig, Environment } from '../services';
 class GlobalMiddleware {
   public static load(rootPath: string, app: Application, config: IConfig) {
     app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+    app.use(express.urlencoded({ extended: true }));
     app.use(bodyParser.json({ limit: '50mb' }));
-    app.use(express.static(path.join(rootPath, '/app/static')));
-    app.set('views', path.join(rootPath, '/app/views'));
+    app.use(express.static(path.join(rootPath, 'app/static')));
+    app.set('views', path.join(rootPath, 'app/views'));
     app.set('view engine', 'ejs');
     /*
      * React Client build
      */
+    console.log(config);
+    console.log(path.join(rootPath, 'client'));
     if (config.env === Environment.production) {
-      app.use(express.static(path.join(rootPath, '/client')));
+      app.use(express.static(path.join(rootPath, 'client')));
     } else {
-      app.use(
-        express.static(path.join(rootPath, '/../../react-client/build')),
-      );
+      app.use(express.static(path.join(rootPath, '../../react-client/build')));
     }
 
     // Helmet helps you secure your Express apps by setting various HTTP headers. It’s not a silver bullet, but it can help!

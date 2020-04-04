@@ -18,7 +18,7 @@ import { Environment, ILogger, IConfig, AuthService } from './services';
 
 class App {
   public app: Application;
-  private rootPath:string;
+  private rootPath: string;
   private config: IConfig;
   private logger: ILogger;
   private router: Router;

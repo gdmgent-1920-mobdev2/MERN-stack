@@ -57,7 +57,7 @@ blogSchema.pre<IBlog>('validate', function(next) {
   return next();
 });
 
-blogSchema.virtual('id').get(function() {
+blogSchema.virtual('id').get(function(this: IBlog) {
   return this._id;
 });
 blogSchema.virtual('posts', {

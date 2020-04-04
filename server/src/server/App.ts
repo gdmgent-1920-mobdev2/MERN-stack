@@ -40,7 +40,7 @@ class App {
     if (this.config.env === Environment.development) {
       MorganMiddleware.load(this.app);
     }
-    SwaggerMiddleware.load(this.rootPath, this.app);
+    SwaggerMiddleware.load(this.rootPath, this.app, this.config);
     this.createPassport();
     this.createRouter();
     this.app.use(this.clientErrorHandler);

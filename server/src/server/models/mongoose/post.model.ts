@@ -71,7 +71,7 @@ postSchema.pre<IPost>('validate', function(next) {
   return next();
 });
 
-postSchema.virtual('id').get(function() {
+postSchema.virtual('id').get(function(this: IPost) {
   return this._id;
 });
 postSchema.virtual('category', {

@@ -82,7 +82,7 @@ const userSchema: Schema = new Schema(
   },
 );
 
-userSchema.pre('save', function(next) {
+userSchema.pre<IUser>('save', function(next) {
   const user: IUser = this as IUser;
 
   if (!user.isModified('localProvider.password')) return next();
@@ -103,7 +103,7 @@ userSchema.pre('save', function(next) {
   }
 });
 
-userSchema.virtual('id').get(function() {
+userSchema.virtual('id').get(function(this: IUser) {
   return this._id;
 });
 userSchema.virtual('messages', {

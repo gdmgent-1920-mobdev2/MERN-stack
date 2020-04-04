@@ -21,7 +21,7 @@ import MongoDBDatabase from './app/services/database';
     }
 
     // Create the Express application
-    const app: App = new App(logger, config);
+    const app: App = new App(__dirname, logger, config);
     app.start();
 
     // Stop all running processes

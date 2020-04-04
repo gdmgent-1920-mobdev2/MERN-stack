@@ -12,7 +12,8 @@
     "rimraf": "^3.0.2"
   },
   "scripts": {
-    "build:all": "rimraf ./dist/* && yarn build:react-client && yarn build:server && yarn cpy:settings",
+    "deploy:heroku": "rimraf ./dist && mkdir dist && cd dist && git init && heroku git:remote -a nmd-mern-boilerplate && yarn build:react-client && yarn build:server && yarn cpy:settings && git add . && git commit -m \"deploy app\" && git push heroku master --force",
+    "build:all": "rimraf ./dist && yarn build:react-client && yarn build:server && yarn cpy:settings",
     "build:react-client": "cd react-client && yarn build && cpy \"**/*.*\" --cwd=build ../../dist/client --parents",
     "build:server": "cd server && yarn build && cpy \"**/*.*\" --cwd=dist ../../dist --parents",
     "dep:install": "cd server && yarn install && cd ../react-client && yarn install",    

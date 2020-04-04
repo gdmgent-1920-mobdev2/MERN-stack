@@ -9,7 +9,7 @@ import path from 'path';
 import { IConfig } from '../../services';
 
 class SwaggerMiddleware {
-  public static load(app: Application, rootPath: string): void {
+  public static load(rootPath: string, app: Application): void {
     const swaggerOptions = {
       swaggerDefinition: {
         info: {

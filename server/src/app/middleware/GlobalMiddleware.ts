@@ -8,20 +8,20 @@ import { default as path } from 'path';
 import { IConfig, Environment } from '../services';
 
 class GlobalMiddleware {
-  public static load(app: Application, rootPath: string, config: IConfig) {
+  public static load(rootPath: string, app: Application, config: IConfig) {
     app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
     app.use(bodyParser.json({ limit: '50mb' }));
-    app.use(express.static(path.join(rootPath, 'static')));
-    app.set('views', path.join(rootPath, 'views'));
+    app.use(express.static(path.join(rootPath, '/app/static')));
+    app.set('views', path.join(rootPath, '/app/views'));
     app.set('view engine', 'ejs');
     /*
      * React Client build
      */
     if (config.env === Environment.production) {
-      app.use(express.static(path.join(rootPath, '../client')));
+      app.use(express.static(path.join(rootPath, '/client')));
     } else {
       app.use(
-        express.static(path.join(rootPath, '/../../../react-client/build')),
+        express.static(path.join(rootPath, '/../../react-client/build')),
       );
     }
 

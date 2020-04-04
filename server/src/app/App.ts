@@ -18,13 +18,15 @@ import { Environment, ILogger, IConfig, AuthService } from './services';
 
 class App {
   public app: Application;
+  private rootPath:string;
   private config: IConfig;
   private logger: ILogger;
   private router: Router;
   private server: Server;
   private authService: AuthService;
 
-  constructor(logger: ILogger, config: IConfig) {
+  constructor(rootPath: string, logger: ILogger, config: IConfig) {
+    this.rootPath = rootPath;
     this.logger = logger;
     this.config = config;
 
@@ -34,11 +36,11 @@ class App {
 
   private createExpress(): void {
     this.app = express();
-    GlobalMiddleware.load(this.app, __dirname, this.config);
+    GlobalMiddleware.load(this.rootPath, this.app, this.config);
     if (this.config.env === Environment.development) {
       MorganMiddleware.load(this.app);
     }
-    SwaggerMiddleware.load(this.app, __dirname);
+    SwaggerMiddleware.load(this.rootPath, this.app);
     this.createPassport();
     this.createRouter();
     this.app.use(this.clientErrorHandler);
@@ -88,8 +90,8 @@ class App {
 
   private createRouter(): void {
     this.router = new Router(
+      this.rootPath,
       this.app,
-      __dirname,
       this.config,
       this.authService,
     );

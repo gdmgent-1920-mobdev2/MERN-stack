@@ -37,12 +37,12 @@ export default class Router {
      * this.app.use('/*', this.fallbackController.index);
      * Vervangen door de React Client (volledige integratie)
      */
-    this.app.use('/', (req: Request, res: Response, next: NextFunction) => {
+    this.app.use('*', (req: Request, res: Response, next: NextFunction) => {
       if (this.config.env === Environment.production) {
-        res.sendFile(path.join(rootPath, 'client/index.html'));
+        res.sendFile(path.resolve(rootPath, 'client', 'index.html'));
       } else {
         res.sendFile(
-          path.join(rootPath, '../../react-client/build/index.html'),
+          path.resolve(rootPath, '..', '..', 'react-client', 'build', 'index.html'),
         );
       }
     });

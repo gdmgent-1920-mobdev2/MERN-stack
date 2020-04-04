@@ -32,7 +32,8 @@
     "winston": "^3.2.1"
   },
   "engines": {
-    "node": "12.x"
+    "node": "12.16.1",
+    "yarn": "1.17.3"
   },
   "scripts": {
     "start": "node index.js"  

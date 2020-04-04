@@ -1,8 +1,8 @@
-import { default as App } from './app';
+import { default as App } from './server';
 
-import { default as Config, IConfig, Environment } from './app/services/config';
-import Logger, { ILogger } from './app/services/logger';
-import MongoDBDatabase from './app/services/database';
+import { default as Config, IConfig, Environment } from './server/services/config';
+import Logger, { ILogger } from './server/services/logger';
+import MongoDBDatabase from './server/services/database';
 
 (async () => {
   // Create a Config service
@@ -20,8 +20,11 @@ import MongoDBDatabase from './app/services/database';
       mongoDBDatabase.seed();
     }
 
+    const rootPath: string = __dirname;
+    console.log(rootPath);
+
     // Create the Express application
-    const app: App = new App(__dirname, logger, config);
+    const app: App = new App(rootPath, logger, config);
     app.start();
 
     // Stop all running processes

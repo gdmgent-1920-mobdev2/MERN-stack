@@ -57,6 +57,7 @@
     "cross-env": "^7.0.2",
     "husky": "^4.2.3",
     "prettier": "^1.19.1",
+    "rimraf": "^3.0.2",
     "ts-node-dev": "^1.0.0-pre.44",
     "tslint": "^6.1.0",
     "tslint-config-airbnb": "^5.11.2",
@@ -64,7 +65,7 @@
     "typescript": "^3.8.3"
   },
   "scripts": {
-    "build": "tsc --build tsconfig.json && cpy \"**/*.*\" --cwd=src/app/views ../../../dist/app/views --parents && cpy \"**/*.*\" --cwd=src/app/static ../../../dist/app/static --parents",
+    "build": "rimraf ./dist && tsc --build tsconfig.json && cpy \"**/*.*\" --cwd=src/server/views ../../../dist/server/views --parents && cpy \"**/*.*\" --cwd=src/server/static ../../../dist/server/static --parents",
     "lint": "tslint --project tsconfig.json",
     "prettier:base": "prettier --parser typescript --single-quote",
     "prettier:check": "yarn prettier:base --list-different \"src/**/*.{ts,tsx}\"",

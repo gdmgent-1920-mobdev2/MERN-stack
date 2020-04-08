@@ -31,18 +31,20 @@ export default class Router {
   }
 
   private registerRoutes(rootPath: string): void {
-    //this.app.route(['/', '/home']).all(this.homeController.index);
     this.app.use('/api', this.apiRouter.router);
-    /*
-     * this.app.use('/*', this.fallbackController.index);
-     * Vervangen door de React Client (volledige integratie)
-     */
     this.app.use('*', (req: Request, res: Response, next: NextFunction) => {
       if (this.config.env === Environment.production) {
         res.sendFile(path.resolve(rootPath, 'client', 'index.html'));
       } else {
         res.sendFile(
-          path.resolve(rootPath, '..', '..', 'react-client', 'build', 'index.html'),
+          path.resolve(
+            rootPath,
+            '..',
+            '..',
+            'react-client',
+            'build',
+            'index.html',
+          ),
         );
       }
     });

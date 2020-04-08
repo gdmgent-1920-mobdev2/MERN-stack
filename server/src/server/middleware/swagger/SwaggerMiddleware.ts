@@ -9,7 +9,11 @@ import path from 'path';
 import { IConfig, Environment } from '../../services';
 
 class SwaggerMiddleware {
-  public static load(rootPath: string, app: Application, config: IConfig): void {
+  public static load(
+    rootPath: string,
+    app: Application,
+    config: IConfig,
+  ): void {
     const swaggerOptions = {
       swaggerDefinition: {
         info: {
@@ -19,7 +23,9 @@ class SwaggerMiddleware {
         },
       },
       apis: [
-        (config.env === Environment.development) ? path.resolve(rootPath, 'api/router/index.ts') : path.resolve(rootPath, 'api/router/index.js')
+        config.env === Environment.development
+          ? path.resolve(rootPath, 'api/router/index.ts')
+          : path.resolve(rootPath, 'api/router/index.js'),
       ],
     };
     const swaggerSpecs = swaggerJsdoc(swaggerOptions);

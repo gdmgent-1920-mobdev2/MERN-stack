@@ -43,20 +43,7 @@ class App {
     SwaggerMiddleware.load(this.rootPath, this.app, this.config);
     this.createPassport();
     this.createRouter();
-    this.app.use(this.clientErrorHandler);
     this.app.use(this.errorHandler);
-  }
-
-  private clientErrorHandler(
-    error: IAppError,
-    req: Request,
-    res: Response,
-    next: NextFunction,
-  ): void {
-    if (req.xhr) {
-      res.status(error.status).json({ error });
-    }
-    next(error);
   }
 
   private errorHandler(
@@ -65,7 +52,19 @@ class App {
     res: Response,
     next: NextFunction,
   ): void {
-    res.status(error.status ? error.status : 500).render('pages/404');
+    res.status(error.status ? error.status : 500);
+
+    if (req.accepts('html')) {
+      res.render('pages/404', { url: req.url });
+      return;
+    }
+
+    if (req.accepts('json')) {
+      res.json({ error });
+      return;
+    }
+
+    res.type('txt').send('Not found');
   }
 
   private createServer(): void {

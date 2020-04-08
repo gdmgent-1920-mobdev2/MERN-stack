@@ -1,6 +1,10 @@
 import { default as App } from './server';
 
-import { default as Config, IConfig, Environment } from './server/services/config';
+import {
+  default as Config,
+  IConfig,
+  Environment,
+} from './server/services/config';
 import Logger, { ILogger } from './server/services/logger';
 import MongoDBDatabase from './server/services/database';
 

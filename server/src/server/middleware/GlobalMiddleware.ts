@@ -12,8 +12,8 @@ class GlobalMiddleware {
     app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
     app.use(express.urlencoded({ extended: true }));
     app.use(bodyParser.json({ limit: '50mb' }));
-    app.use(express.static('server/static'));
-    app.set('views', 'server/views');
+    app.use(express.static(path.resolve(rootPath, 'server', 'static')));
+    app.set('views', path.resolve(rootPath, 'server', 'views'));
     app.set('view engine', 'ejs');
     /*
      * React Client build
@@ -21,7 +21,11 @@ class GlobalMiddleware {
     if (config.env === Environment.production) {
       app.use(express.static(path.resolve(rootPath, 'client')));
     } else {
-      app.use(express.static(path.resolve(rootPath, '..', '..', 'react-client', 'build')));
+      app.use(
+        express.static(
+          path.resolve(rootPath, '..', '..', 'react-client', 'build'),
+        ),
+      );
     }
 
     // Helmet helps you secure your Express apps by setting various HTTP headers. It’s not a silver bullet, but it can help!
